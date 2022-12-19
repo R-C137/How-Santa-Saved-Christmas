@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class SpawnedObjectBehaviour : MonoBehaviour
 {
+    public TMPro.TMP_Text ded;
+
     public bool destroySelfOnOverlap = true;
 
     public virtual void OnPlayerTrigger(Collider playerCollider)
     {
+        if(this.CompareTag("Obstacle"))
+        {
 
+            if (ded != null)
+                ded.gameObject.SetActive(true);
+            playerCollider.GetComponentInParent<MovementSystem>().Stop = true;
+            //playerCollider.GetComponent<MovementSystem>().SpeedSlider.interactable = false;
+        }
     }
 
     public virtual void OnOverlapTrigger(Collider spawnedObjectCollider)
@@ -35,4 +44,5 @@ public class SpawnedObjectBehaviour : MonoBehaviour
         else
             OnUnknownTrigger(other);
     }
+
 }
