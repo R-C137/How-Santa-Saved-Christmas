@@ -1,7 +1,12 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Jobs;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -50,10 +55,13 @@ public class ObjectSpawner : MonoBehaviour
 
             spawnedObjects.Add(obj);
 
+            spawnedObjects.RemoveAll((_obj) => _obj == null);
+
             //ToList() to prevent editing from the actual list and only a copy
             foreach (GameObject @object in spawnedObjects.ToList())
             {
-                if (@object.transform.position.x <(player.transform.position.x + /* offset */ 5f))
+
+                if (@object.transform.position.x < player.transform.position.x + /* offset */ 20f)
                 {
                     spawnedObjects.Remove(@object);
                     Destroy(@object);
