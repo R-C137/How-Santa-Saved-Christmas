@@ -13,10 +13,21 @@ public class MovementSystem : MonoBehaviour
 
     public float RightLeftMovementSpeed;
 
+    public bool Stop;
+
     public void Update()
     {
-        //Not transform.forward due to the front being on the transform.right
-        player.transform.position += speed * Time.deltaTime * transform.right;
+        if(!Stop)
+        {
+            //Not transform.forward due to the front being on the transform.right
+            player.transform.position += speed * Time.deltaTime * transform.right;
+        } 
+        
+        else
+        {
+            player.transform.position = player.transform.position;
+            speed = 0;
+        }
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
