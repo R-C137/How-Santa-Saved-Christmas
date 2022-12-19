@@ -61,7 +61,7 @@ public class ObjectSpawner : MonoBehaviour
             foreach (GameObject @object in spawnedObjects.ToList())
             {
 
-                if (@object.transform.position.x < player.transform.position.x + /* offset */ 20f)
+                if (@object.transform.position.x < player.transform.position.x - /* offset */ 20f)
                 {
                     spawnedObjects.Remove(@object);
                     Destroy(@object);
