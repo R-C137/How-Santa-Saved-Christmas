@@ -12,26 +12,26 @@ public class HouseBehavior : MonoBehaviour
 
     private void Start()
     {
-        SR = GetComponent<Renderer>().material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        SR = GetComponent<Renderer>().material;
 
-        HouseType = Random.Range(1, 5);
+        HouseType = Random.Range(1, 6);
 
         switch (HouseType)
         {
             case 1:
-                SR.color = Color.green;
+                SR.color = new Color32(0, 255, 0, 100);
                 break;
             case 2:
-                SR.color = Color.red;
+                SR.color = new Color32(255, 0, 0, 100);
                 break;
             case 3:
-                SR.color = Color.blue;
+                SR.color = new Color32(0, 0, 255, 100); 
                 break;
             case 4:
-                SR.color = Color.yellow;
+                SR.color = new Color32(0, 255, 255, 100);
                 break;
             case 5:
-                SR.color = Color.black;
+                SR.color = new Color32(0, 0, 0, 100);
                 break;
         }
 

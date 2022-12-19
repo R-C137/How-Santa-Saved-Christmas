@@ -108,7 +108,7 @@ public class ObjectSpawner : MonoBehaviour
 
             obj.transform.position = pos;
 
-            obj.transform.position += new Vector3(0, obj.transform.lossyScale.y / 2, 0);
+            obj.transform.position += new Vector3(0, 0, 0);
             obj.transform.parent = parent;
 
             spawnedObjects.Add(obj);
