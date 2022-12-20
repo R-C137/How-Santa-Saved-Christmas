@@ -15,18 +15,18 @@ public class SpawnedObjectBehaviour : MonoBehaviour
 
     public virtual void OnPlayerTrigger(Collider playerCollider)
     {
-        if (this.CompareTag("Player"))
-        {
+        //if (this.CompareTag("Player"))
+        //{
 
-            if (ded != null)
-                ded.gameObject.SetActive(true);
-            playerCollider.GetComponentInParent<MovementSystem>().stopped = true;
-            //playerCollider.GetComponent<MovementSystem>().SpeedSlider.interactable = false;
-        }
+        //    if (ded != null)
+        //        ded.gameObject.SetActive(true);
+        //    playerCollider.GetComponentInParent<MovementSystem>().stopped = true;
+        //    //playerCollider.GetComponent<MovementSystem>().SpeedSlider.interactable = false;
+        //}
 
     }
 
-    void Update()
+    public void Update()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position, overlapingSize);
 
