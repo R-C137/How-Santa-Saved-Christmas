@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SnowSpawner : MonoBehaviour
@@ -7,16 +8,16 @@ public class SnowSpawner : MonoBehaviour
     public List<Transform> startPos = new();
     public List<Transform> endPos = new();
 
-    public Transform canvas;
-
+    public Transform parent;
     public GameObject snowball;
-    public float timeToEndPos;
 
-    public float spawnTimer = 1;
+    public float timeToEndPos = 2.5f;
+
+    public float spawnTimer = .2f;
 
     public bool showGizmos = true;
 
-    void Awake()
+    void Start()
     {
         StartCoroutine(SpawnSnowballs());
     }
@@ -24,15 +25,17 @@ public class SnowSpawner : MonoBehaviour
     void OnDrawGizmos()
     {
         if (showGizmos)
-        {
             for (int i = 0; i < startPos.Count; i++)
             {
-                Vector3 start = startPos[i].position;
-                Vector3 end = endPos[i].position;
+                if (endPos.Any() && startPos.Count >= i)
+                {
 
-                Gizmos.DrawLine(start, end);
+                    Vector3 start = startPos[i].position;
+                    Vector3 end = endPos[i].position;
+
+                    Gizmos.DrawLine(start, end);
+                }
             }
-        }
     }
 
     IEnumerator SpawnSnowballs()
@@ -41,13 +44,14 @@ public class SnowSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnTimer);
 
-            GameObject obj = Instantiate(snowball, canvas);
+            GameObject obj = Instantiate(snowball, parent);
 
-            int index = Random.Range(0, startPos.Count - 1);
+            int index = Random.Range(0, endPos.Count - 1);
 
             obj.transform.position = startPos[index].position;
-            
-            LeanTween.moveY(obj, endPos[index].transform.position.y, timeToEndPos).setDestroyOnComplete(true);
+
+            LeanTween.moveY(obj, endPos[index].transform.position.y, timeToEndPos)
+                .setDestroyOnComplete(true);
         }
     }
 }

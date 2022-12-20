@@ -10,14 +10,14 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void Settings()
-    {
-        Debug.Log("Settings menu not yet created");
-    }
-
     public void Credits()
     {
-        Debug.Log("Credits menu not yet created");
+
+    }
+
+    public void Settings()
+    {
+
     }
 
     public void Exit()
