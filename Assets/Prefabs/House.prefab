@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2740311670714951563}
   - component: {fileID: 5501398215887003036}
   - component: {fileID: -4031520716195233054}
+  - component: {fileID: 1580646339510129245}
   m_Layer: 0
   m_Name: House
   m_TagString: House
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7162408704996330221
 MeshFilter:
@@ -121,7 +122,29 @@ MonoBehaviour:
   ded: {fileID: 0}
   destroySelfOnOverlap: 1
   destroying: 0
-  overlapingSize: {x: 10, y: 10, z: 10}
-  houseColor: {r: 0, g: 0, b: 0, a: 0}
+  overlapingSize: {x: 100, y: 2, z: 16}
+  HouseColor: {r: 0, g: 0, b: 0, a: 0}
   SR: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  alpha: 255
   Gifted: 0
+--- !u!65 &1580646339510129245
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5758652392544698852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.08170982, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

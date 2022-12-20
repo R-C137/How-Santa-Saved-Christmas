@@ -33,6 +33,8 @@ public class ObjectSpawner : MonoBehaviour
 
     public Transform parent;
 
+    public float alpha;
+
     public void Awake()
     {
         if (shoudSpawn)
@@ -61,7 +63,7 @@ public class ObjectSpawner : MonoBehaviour
 
             return new Vector3(
                 Random.Range(bounds.bounds.min.x, bounds.bounds.max.x),
-                Random.Range(bounds.bounds.min.y, bounds.bounds.max.y),
+                20,
                 selectedLane
                 );
         }
@@ -81,6 +83,8 @@ public class ObjectSpawner : MonoBehaviour
             obj.transform.position = pos;
 
             obj.transform.position += new Vector3(0, obj.transform.lossyScale.y / 2, 0);
+
+            //obj.GetComponent<SpawnedObjectBehaviour>().CheckCollision();
 
             obj.transform.parent = parent;
 
@@ -112,9 +116,9 @@ public class ObjectSpawner : MonoBehaviour
             GameObject obj = Instantiate(houses[Random.Range(0, houses.Count - 1)]);
 
             obj.transform.position = pos;
-
-            obj.transform.position += new Vector3(0, 0, 0);
             obj.transform.parent = parent;
+
+            obj.GetComponent<HouseBehavior>().alpha = alpha;
 
             spawnedObjects.Add(obj);
 

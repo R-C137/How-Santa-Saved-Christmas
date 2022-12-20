@@ -15,11 +15,13 @@ public class ProceduralGeneration : MonoBehaviour
 
     public float nextPosToDestroy = -1;
 
-    public float spawnOffset = 10;
+    public float spawnPosOffset = 10;
+
+    public Vector3 spawnOffset;
 
     public void Update()
     {
-        if (player.transform.position.x >= objects.Last().transform.position.x - spawnOffset)
+        if (player.transform.position.x >= objects.Last().transform.position.x - spawnPosOffset)
         {
             SpawnNewProceduralTerrain();
         }
@@ -43,7 +45,7 @@ public class ProceduralGeneration : MonoBehaviour
         float endPosOfLatestGameobject = latestGameObject.transform.position.x + latestGameObject.transform.lossyScale.x / 2;
 
         currentProcudualObj.transform.position =
-            new Vector3(endPosOfLatestGameobject + currentProcudualObj.transform.lossyScale.x / 2, 0, 0);
+            new Vector3(endPosOfLatestGameobject + currentProcudualObj.transform.lossyScale.x / 2, 0, 0) + spawnOffset;
 
         objects.Add(currentProcudualObj);
 
