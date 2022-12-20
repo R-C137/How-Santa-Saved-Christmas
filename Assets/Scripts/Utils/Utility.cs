@@ -21,7 +21,7 @@ public class Utility : MonoBehaviour
             Destroy(this);
     }
 
-    void SetGameOver()
+    public void SetGameOver()
     {
         isGameOver = true;
         onGameOver?.Invoke();
