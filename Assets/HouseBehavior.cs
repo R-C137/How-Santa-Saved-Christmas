@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class HouseBehavior : MonoBehaviour
+public class HouseBehavior : SpawnedObjectBehaviour
 {
-    public int HouseType;
+    public Color HouseColor;
 
     public Material SR;
+
+    public float alpha = 255f;
 
     public bool Gifted;
 
@@ -14,26 +17,44 @@ public class HouseBehavior : MonoBehaviour
     {
         SR = GetComponent<Renderer>().material;
 
-        HouseType = Random.Range(1, 6);
+        int colorIndex = Random.Range(0, 3);
 
-        switch (HouseType)
+        switch (colorIndex)
         {
+            case 0:
+                HouseColor = Color.red;
+                break;
             case 1:
-                SR.color = new Color32(0, 255, 0, 100);
+                HouseColor = Color.blue;
                 break;
             case 2:
-                SR.color = new Color32(255, 0, 0, 100);
+                HouseColor = Color.green;
                 break;
             case 3:
-                SR.color = new Color32(0, 0, 255, 100); 
+                HouseColor = Color.yellow;
                 break;
-            case 4:
-                SR.color = new Color32(0, 255, 255, 100);
-                break;
-            case 5:
-                SR.color = new Color32(0, 0, 0, 100);
-                break;
-        }
 
+        }
+        
+        SR.color = new(HouseColor.r, HouseColor.g, HouseColor.b, alpha/255);
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if(Gifted)
+            return;;
+        if (other.CompareTag("Player"))
+        {
+            var dg = other.GetComponent<DropGifts>();
+
+            if (Input.GetButton("Jump") && HouseColor.CompareRGB(dg.CurrentColor) /*&& canDrop*/)
+            {
+                dg.giftsDropped++;
+                dg.GiftsDroppedTxt.text = "gifts dropped: " + dg.giftsDropped;
+                Gifted = true;
+                //canDrop = false;
+                //StartCoroutine(ResetDrop());
+            }
+        }
     }
 }

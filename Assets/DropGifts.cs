@@ -19,8 +19,6 @@ public class DropGifts : MonoBehaviour
     public int giftsDropped;
 
     //public bool canDrop;
-
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)/* && !hasChosen*/)
@@ -66,19 +64,19 @@ public class DropGifts : MonoBehaviour
     //    print("timer resetted");
     //}
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("House"))
-        {
-            if (Input.GetButton("Jump") &&  other.GetComponent<HouseBehavior>().Gifted != true && Input.GetButton("Jump") && other.GetComponent<HouseBehavior>().houseColor == CurrentColor /*&& canDrop*/)
-            {
-                giftsDropped++;
-                GiftsDroppedTxt.text = "gifts dropped: " + giftsDropped;
-                other.GetComponent<HouseBehavior>().Gifted = true;
-                //canDrop = false;
-                //StartCoroutine(ResetDrop());
-            }
-        }
+        //if (other.CompareTag("House"))
+        //{
+        //    if (Input.GetButton("Jump") &&  other.GetComponent<HouseBehavior>().Gifted != true && Input.GetButton("Jump") && other.GetComponent<HouseBehavior>().HouseColor.CompareRGB(CurrentColor) /*&& canDrop*/)
+        //    {
+        //        giftsDropped++;
+        //        GiftsDroppedTxt.text = "gifts dropped: " + giftsDropped;
+        //        other.GetComponent<HouseBehavior>().Gifted = true;
+        //        //canDrop = false;
+        //        //StartCoroutine(ResetDrop());
+        //    }
+        //}
     }
 
     //IEnumerator ResetDrop()
