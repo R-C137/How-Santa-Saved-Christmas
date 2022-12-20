@@ -11,33 +11,28 @@ public class MovementSystem : MonoBehaviour
 
     public float speed;
 
-    public float RightLeftMovementSpeed;
+    public float rightLeftMovementSpeed;
 
-    public bool Stop;
+    public bool stopped;
 
     public void Update()
     {
-        if(!Stop)
-        {
-            //Not transform.forward due to the front being on the transform.right
-            player.transform.position += speed * Time.deltaTime * transform.right;
-        } 
+        if(stopped)
+            return;
+
+        //Not transform.forward due to the front being on the transform.right
+        player.transform.position += speed * Time.deltaTime * transform.right;
         
-        else
-        {
-            player.transform.position = player.transform.position;
-            speed = 0;
-        }
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            player.transform.position += RightLeftMovementSpeed * Time.deltaTime * transform.forward;
+            player.transform.position += rightLeftMovementSpeed * Time.deltaTime * transform.forward;
 
             spawnArea.transform.position = new Vector3(spawnArea.transform.position.x, spawnArea.transform.position.y, 0);
         }
         if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            player.transform.position += RightLeftMovementSpeed * Time.deltaTime * -transform.forward;
+            player.transform.position += rightLeftMovementSpeed * Time.deltaTime * -transform.forward;
 
             spawnArea.transform.position = new Vector3(spawnArea.transform.position.x, spawnArea.transform.position.y, 0);
         }

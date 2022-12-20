@@ -9,86 +9,83 @@ public class DropGifts : MonoBehaviour
 
     public TMP_Text GiftsDroppedTxt;
 
-    public int CurrentColor;
+    public Color CurrentColor;
 
     public float ResetTimer;
     public float giftDropTimer;
 
-    public bool hasChosen;
+    //public bool hasChosen;
 
     public int giftsDropped;
 
-    public bool canDrop;
+    //public bool canDrop;
 
 
     private void Update()
     {
-        if (Input.GetButtonDown("1") && !hasChosen)
+        if (Input.GetKeyDown(KeyCode.Alpha1)/* && !hasChosen*/)
         {
-            ChangeGift(1); // green
+            CurrentColor = Color.green; // green
             currentCol.text = "Color: green";
         }
-        if (Input.GetButtonDown("2") && !hasChosen)
+        if (Input.GetKeyDown(KeyCode.Alpha2)/* && !hasChosen*/)
         {
-            ChangeGift(2); // red
-            currentCol.text = "Color: red";
+            CurrentColor = Color.red; // red
+           currentCol.text = "Color: red";
         }
-        if (Input.GetButtonDown("3") && !hasChosen)
+        if (Input.GetKeyDown(KeyCode.Alpha3)/* && !hasChosen*/)
         {
-            ChangeGift(3); // blue
-            currentCol.text = "Color: blue";
+            CurrentColor = Color.blue; // blue
+           currentCol.text = "Color: blue";
         }
-        if (Input.GetButtonDown("4") && !hasChosen)
+        if (Input.GetKeyDown(KeyCode.Alpha4)/* && !hasChosen*/)
         {
-            ChangeGift(4); // yellow
+            CurrentColor = Color.yellow; // yellow
             currentCol.text = "Color: yellow";
         }
-        if (Input.GetButtonDown("5") && !hasChosen)
+        if (Input.GetKeyDown(KeyCode.Alpha5)/* && !hasChosen*/)
         {
-            ChangeGift(5); // black
+            CurrentColor = Color.black; // black
             currentCol.text = "Color: black";
         }
     }
 
-    public void ChangeGift(int color)
-    {
-        CurrentColor = color;
-        hasChosen = true;
-        StartCoroutine(ResetCounter());
-    }
+    //public void ChangeGift(int color)
+    //{
+    //    CurrentColor = color;
+    //    //hasChosen = true;
+    //    //StartCoroutine(ResetCounter());
+    //}
 
-    IEnumerator ResetCounter()
-    {
-        yield return new WaitForSeconds(ResetTimer);
+    //IEnumerator ResetCounter()
+    //{
+    //    yield return new WaitForSeconds(ResetTimer);
 
-        hasChosen = false;
+    //    hasChosen = false;
 
-        print("timer resetted");
-
-        yield break;
-    }
+    //    print("timer resetted");
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("House"))
         {
-            if (Input.GetButton("Jump") &&  other.GetComponent<HouseBehavior>().Gifted != true && Input.GetButton("Jump") && other.GetComponent<HouseBehavior>().HouseType == CurrentColor && canDrop)
+            if (Input.GetButton("Jump") &&  other.GetComponent<HouseBehavior>().Gifted != true && Input.GetButton("Jump") && other.GetComponent<HouseBehavior>().houseColor == CurrentColor /*&& canDrop*/)
             {
                 giftsDropped++;
-                GiftsDroppedTxt.text = "gifts dropped: " + giftsDropped.ToString();
+                GiftsDroppedTxt.text = "gifts dropped: " + giftsDropped;
                 other.GetComponent<HouseBehavior>().Gifted = true;
-                canDrop = false;
-                StartCoroutine(ResetDrop());
+                //canDrop = false;
+                //StartCoroutine(ResetDrop());
             }
         }
     }
 
-    IEnumerator ResetDrop()
-    {
-        yield return new WaitForSeconds(giftDropTimer);
-        canDrop = true;
-        yield break;
-    }
+    //IEnumerator ResetDrop()
+    //{
+    //    yield return new WaitForSeconds(giftDropTimer);
+    //    canDrop = true;
+    //}
 
 
 }

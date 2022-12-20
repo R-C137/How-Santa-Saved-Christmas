@@ -7,6 +7,6 @@ public class TryAgain : MonoBehaviour
 {
     public void TryAgainPressed()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
