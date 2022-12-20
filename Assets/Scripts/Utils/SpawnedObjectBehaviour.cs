@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class SpawnedObjectBehaviour : MonoBehaviour
 {
-    public TMPro.TMP_Text ded;
-
     public bool destroySelfOnOverlap = true;
 
     public bool destroying;
