@@ -1398,12 +1398,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac4e4551e43a6043a7cb8c7569a6231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftPos: -9
+  rightPos: 9
   player: {fileID: 1842542572}
   objects:
   - {fileID: 6051490701035231923, guid: 36b29ca36ede223478c19460e993f762, type: 3}
+  houses:
+  - {fileID: 5758652392544698852, guid: 169833881454add418b1e7d10fcecd19, type: 3}
   spawnedObjects: []
   bounds: {fileID: 755776016}
   spawnTimer: 2
+  houseSpawnTimer: 2
   parent: {fileID: 714131567}
 --- !u!1 &970865286
 GameObject:
@@ -1681,6 +1686,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1335979177}
   - component: {fileID: 1335979176}
+  - component: {fileID: 1335979178}
+  - component: {fileID: 1335979179}
+  - component: {fileID: 1335979180}
   m_Layer: 0
   m_Name: == Player ==
   m_TagString: Player
@@ -1720,6 +1728,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1335979178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335979175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7862f3a8d4a10499f5913e174fc242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCol: {fileID: 75235484}
+  GiftsDroppedTxt: {fileID: 773180073}
+  CurrentColor: 0
+  ResetTimer: 1
+  giftDropTimer: 0.5
+  hasChosen: 0
+  giftsDropped: 0
+  canDrop: 1
+--- !u!65 &1335979179
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335979175}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1335979180
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335979175}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
 --- !u!1 &1490524797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,7 +2443,7 @@ GameObject:
   - component: {fileID: 1978712012}
   - component: {fileID: 1978712011}
   m_Layer: 5
-  m_Name: Death Screen
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2450,8 +2526,8 @@ RectTransform:
   - {fileID: 773180072}
   - {fileID: 75235483}
   - {fileID: 722288498}
-  m_Father: {fileID: 1169879558}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
