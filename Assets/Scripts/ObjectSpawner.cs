@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Jobs;
 using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
-using Random = UnityEngine.Random;
+
+public enum SpawningType
+{
+    Normal,
+    House
+}
 
 public class ObjectSpawner : MonoBehaviour
 {
-    public TMPro.TMP_Text deadText;
-
     public float leftPos, rightPos;
+
+    public bool shoudSpawn = true;
 
     public Transform player;
 
@@ -31,14 +35,17 @@ public class ObjectSpawner : MonoBehaviour
 
     public void Awake()
     {
-        StartCoroutine(SpawnObjectsTimer());
+        if (shoudSpawn)
+        {
+            StartCoroutine(SpawnObjectsTimer());
 
-        StartCoroutine(SpawnHousesTimer());
+            StartCoroutine(SpawnHousesTimer());
+        }
     }
 
-    public Vector3 GetRandomPos(int ObjectType)
+    public Vector3 GetRandomPos(SpawningType spawningType)
     {
-        if(ObjectType == 1)
+        if(spawningType == SpawningType.Normal)
         {
             return new Vector3(
                 Random.Range(bounds.bounds.min.x, bounds.bounds.max.x),
@@ -47,7 +54,7 @@ public class ObjectSpawner : MonoBehaviour
             );
         } 
 
-        if(ObjectType == 2)
+        if(spawningType == SpawningType.House)
         {
             int RandomNum = Random.Range(0, 2);
             float selectedLane = RandomNum == 0 ? leftPos : rightPos;
@@ -67,11 +74,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnTimer);
 
-            Vector3 pos = GetRandomPos(1); //obstacle
+            Vector3 pos = GetRandomPos(SpawningType.Normal);
 
             GameObject obj = Instantiate(objects[Random.Range(0, objects.Count - 1)]);
-
-            obj.GetComponent<SpawnedObjectBehaviour>().ded = deadText;
 
             obj.transform.position = pos;
 
@@ -81,9 +86,9 @@ public class ObjectSpawner : MonoBehaviour
 
             spawnedObjects.Add(obj);
 
-            spawnedObjects.RemoveAll((_obj) => _obj == null);
+            spawnedObjects.RemoveAll(_obj => _obj == null);
 
-            //ToList() to prevent editing from the actual list and only a copy
+            //ToList() to prevent enumeration from the actual list.
             foreach (GameObject @object in spawnedObjects.ToList())
             {
 
@@ -102,7 +107,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(houseSpawnTimer);
 
-            Vector3 pos = GetRandomPos(2); //house
+            Vector3 pos = GetRandomPos(SpawningType.House);
 
             GameObject obj = Instantiate(houses[Random.Range(0, houses.Count - 1)]);
 

@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 200501773}
   - component: {fileID: 200501772}
   - component: {fileID: 200501771}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.11509335, y: 0.69767725, z: -0.11509335, w: 0.69767725}
-  m_LocalPosition: {x: 32.490276, y: 5.9872184, z: -0.6013479}
+  m_LocalPosition: {x: 31.729275, y: 7.477218, z: -0.6013479}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -654,7 +654,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 564283890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sledge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 603005283}
   - component: {fileID: 603005282}
   - component: {fileID: 603005281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Santa Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,7 +1059,7 @@ GameObject:
   m_Component:
   - component: {fileID: 755776015}
   - component: {fileID: 755776016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spawn Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1074,7 +1074,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755776014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 156.4, y: -0.2, z: 0}
+  m_LocalPosition: {x: 156.2, y: -0.20000005, z: 0}
   m_LocalScale: {x: 65.187355, y: 0, z: 24.87901}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1283,7 +1283,7 @@ GameObject:
   - component: {fileID: 895754306}
   - component: {fileID: 895754305}
   - component: {fileID: 895754304}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back curve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1442,6 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac4e4551e43a6043a7cb8c7569a6231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadText: {fileID: 0}
   leftPos: -9
   rightPos: 9
   player: {fileID: 1842542572}
@@ -1723,7 +1724,8 @@ MonoBehaviour:
   player: {fileID: 1842542571}
   spawnArea: {fileID: 755776015}
   speed: 25
-  RightLeftMovementSpeed: 15
+  rightLeftMovementSpeed: 15
+  stopped: 0
 --- !u!4 &1335979177
 Transform:
   m_ObjectHideFlags: 0
@@ -2100,7 +2102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1749310182}
   - component: {fileID: 1749310183}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2115,7 +2117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749310181}
   m_LocalRotation: {x: 0.11509335, y: 0.69767725, z: -0.11509335, w: 0.69767725}
-  m_LocalPosition: {x: -6.94, y: 6.26, z: 0}
+  m_LocalPosition: {x: -8.57, y: 6.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2171,7 +2173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1842542572}
   - component: {fileID: 1842542573}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2186,14 +2188,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842542571}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.631, y: 1.22, z: 0}
+  m_LocalPosition: {x: 42.5, y: 2.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 755776015}
   - {fileID: 564283890}
   - {fileID: 603005280}
   - {fileID: 1749310182}
+  - {fileID: 755776015}
   m_Father: {fileID: 1335979177}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2216,8 +2218,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.9418, y: 3.1148105, z: 2.8097763}
-  m_Center: {x: 0.05211401, y: 0, z: 0}
+  m_Size: {x: 4.9418, y: 2.3442094, z: 2.8097763}
+  m_Center: {x: 0.05211401, y: 0.58628714, z: 0}
 --- !u!1 &1866423368
 GameObject:
   m_ObjectHideFlags: 3
@@ -2230,7 +2232,7 @@ GameObject:
   - component: {fileID: 1866423372}
   - component: {fileID: 1866423371}
   - component: {fileID: 1866423370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2325,7 +2327,7 @@ GameObject:
   - component: {fileID: 1902425701}
   - component: {fileID: 1902425700}
   - component: {fileID: 1902425699}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Front curve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
