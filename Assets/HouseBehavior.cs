@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HouseBehavior : SpawnedObjectBehaviour
+public class HouseBehavior : MonoBehaviour
 {
-    public Color houseColor;
+    public int HouseType;
 
     public Material SR;
 
@@ -12,31 +12,26 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
     private void Start()
     {
-        SR = GetComponent<Renderer>().material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        SR = GetComponent<Renderer>().material;
 
-        int HouseType = Random.Range(1, 5);
+        HouseType = Random.Range(1, 6);
 
         switch (HouseType)
         {
             case 1:
-                SR.color = Color.green;
-                houseColor = Color.green;
+                SR.color = new Color32(0, 255, 0, 100);
                 break;
             case 2:
-                SR.color = Color.red;
-                houseColor = Color.red;
+                SR.color = new Color32(255, 0, 0, 100);
                 break;
             case 3:
-                SR.color = Color.blue;
-                houseColor = Color.blue;
+                SR.color = new Color32(0, 0, 255, 100); 
                 break;
             case 4:
-                SR.color = Color.yellow;
-                houseColor = Color.yellow;
+                SR.color = new Color32(0, 255, 255, 100);
                 break;
             case 5:
-                SR.color = Color.black;
-                houseColor = Color.black;
+                SR.color = new Color32(0, 0, 0, 100);
                 break;
         }
 
