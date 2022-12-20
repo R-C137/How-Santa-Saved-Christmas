@@ -269,7 +269,6 @@ GameObject:
   - component: {fileID: 200501770}
   - component: {fileID: 200501773}
   - component: {fileID: 200501772}
-  - component: {fileID: 200501771}
   m_Layer: 6
   m_Name: Base
   m_TagString: Untagged
@@ -292,27 +291,6 @@ Transform:
   m_Father: {fileID: 564283890}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &200501771
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200501769}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &200501772
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1282,7 +1260,6 @@ GameObject:
   - component: {fileID: 895754303}
   - component: {fileID: 895754306}
   - component: {fileID: 895754305}
-  - component: {fileID: 895754304}
   m_Layer: 6
   m_Name: Back curve
   m_TagString: Untagged
@@ -1305,27 +1282,6 @@ Transform:
   m_Father: {fileID: 564283890}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &895754304
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895754302}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &895754305
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1442,9 +1398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac4e4551e43a6043a7cb8c7569a6231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deadText: {fileID: 0}
   leftPos: -9
   rightPos: 9
+  shoudSpawn: 1
   player: {fileID: 1842542572}
   objects:
   - {fileID: 6051490701035231923, guid: 36b29ca36ede223478c19460e993f762, type: 3}
@@ -1700,8 +1656,6 @@ GameObject:
   - component: {fileID: 1335979177}
   - component: {fileID: 1335979176}
   - component: {fileID: 1335979178}
-  - component: {fileID: 1335979179}
-  - component: {fileID: 1335979180}
   m_Layer: 0
   m_Name: == Player ==
   m_TagString: Player
@@ -1756,60 +1710,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCol: {fileID: 75235484}
   GiftsDroppedTxt: {fileID: 773180073}
-  CurrentColor: 0
+  CurrentColor: {r: 0, g: 0, b: 0, a: 0}
   ResetTimer: 1
   giftDropTimer: 0.5
-  hasChosen: 0
   giftsDropped: 0
-  canDrop: 1
---- !u!65 &1335979179
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335979175}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1335979180
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335979175}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 4
-  m_CollisionDetection: 0
 --- !u!1 &1490524797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,6 +2077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1842542572}
   - component: {fileID: 1842542573}
+  - component: {fileID: 1842542574}
   m_Layer: 6
   m_Name: Player Model
   m_TagString: Player
@@ -2220,6 +2125,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.9418, y: 2.3442094, z: 2.8097763}
   m_Center: {x: 0.05211401, y: 0.58628714, z: 0}
+--- !u!54 &1842542574
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842542571}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1866423368
 GameObject:
   m_ObjectHideFlags: 3
@@ -2326,7 +2258,6 @@ GameObject:
   - component: {fileID: 1902425698}
   - component: {fileID: 1902425701}
   - component: {fileID: 1902425700}
-  - component: {fileID: 1902425699}
   m_Layer: 6
   m_Name: Front curve
   m_TagString: Untagged
@@ -2349,27 +2280,6 @@ Transform:
   m_Father: {fileID: 564283890}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -23.986}
---- !u!65 &1902425699
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902425697}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1902425700
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -11,9 +11,11 @@ public class SpawnedObjectBehaviour : MonoBehaviour
 
     public bool destroying;
 
+    public Vector3 overlapingSize;
+
     public virtual void OnPlayerTrigger(Collider playerCollider)
     {
-        if(this.CompareTag("Player"))
+        if (this.CompareTag("Player"))
         {
 
             if (ded != null)
@@ -21,11 +23,12 @@ public class SpawnedObjectBehaviour : MonoBehaviour
             playerCollider.GetComponentInParent<MovementSystem>().stopped = true;
             //playerCollider.GetComponent<MovementSystem>().SpeedSlider.interactable = false;
         }
+
     }
 
     void Update()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position, transform.lossyScale);
+        Collider[] colliders = Physics.OverlapBox(transform.position, overlapingSize);
 
 
         foreach (Collider collider in colliders)
@@ -90,6 +93,11 @@ public class SpawnedObjectBehaviour : MonoBehaviour
             OnPlayerTrigger(other);
         else
             OnUnknownTrigger(other);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, overlapingSize);
     }
 
 }
