@@ -841,7 +841,8 @@ Transform:
   m_LocalPosition: {x: 271.7, y: -0.20000005, z: 0}
   m_LocalScale: {x: 65.187355, y: 0, z: 14.93548}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1652149967}
   m_Father: {fileID: 1842542572}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1072,14 +1073,19 @@ MonoBehaviour:
   rightPos: 9
   shoudSpawn: 1
   player: {fileID: 1842542572}
+  SpawnedElf: {fileID: 0}
   objects:
   - {fileID: 6051490701035231923, guid: 36b29ca36ede223478c19460e993f762, type: 3}
   houses:
   - {fileID: 5758652392544698852, guid: 169833881454add418b1e7d10fcecd19, type: 3}
+  elves:
+  - {fileID: 140152030613658591, guid: 0cdbc5ea1169b644eb18d695f1b6748b, type: 3}
   spawnedObjects: []
   bounds: {fileID: 755776016}
+  elfBounds: {fileID: 1652149968}
   spawnTimer: 2
   houseSpawnTimer: 2
+  elvesSpawnTimer: 6
   parent: {fileID: 714131567}
   alpha: 100
 --- !u!1 &1004857971
@@ -1644,6 +1650,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542420299}
   m_CullTransparentMesh: 1
+--- !u!1 &1652149966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1652149967}
+  - component: {fileID: 1652149968}
+  m_Layer: 6
+  m_Name: Elf are
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1652149967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652149966}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.891, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 755776015}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1652149968
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652149966}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1749310181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,6 +1786,7 @@ GameObject:
   - component: {fileID: 1842542573}
   - component: {fileID: 1842542574}
   - component: {fileID: 1842542575}
+  - component: {fileID: 1842542576}
   m_Layer: 6
   m_Name: Player Model
   m_TagString: Player
@@ -1820,6 +1880,23 @@ MonoBehaviour:
   ResetTimer: 1
   giftDropTimer: 0.5
   giftsDropped: 0
+--- !u!114 &1842542576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842542571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 098565b5d61413e448087246d20f9cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yOffset: 25
+  bulletPrefab: {fileID: 6511375941152785654, guid: bfddca937fdae1641b4892ab70a3d2f2,
+    type: 3}
+  fireStrength: 80
+  bulletLifetime: 5
 --- !u!1 &1866423368
 GameObject:
   m_ObjectHideFlags: 3
