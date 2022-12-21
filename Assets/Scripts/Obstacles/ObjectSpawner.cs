@@ -27,6 +27,8 @@ public class ObjectSpawner : MonoBehaviour
 
     public List<GameObject> elves = new();
 
+    public List<GameObject> powerups = new();
+
     public List<GameObject> spawnedObjects = new();
 
     public Collider bounds;
@@ -34,7 +36,7 @@ public class ObjectSpawner : MonoBehaviour
     public Collider elfBounds;
 
     //WILL CAUSE AN INFINITE WHILE LOOP IF SET TO 0 AND POSSIBLY AN ERROR IF SET TO LESS
-    public float spawnTimer = 1, houseSpawnTimer = 1, elvesSpawnMinTimer = 5, elvesSpawnMaxTimer = 17;
+    public float spawnTimer = 1, houseSpawnTimer = 1, elvesSpawnMinTimer = 5, elvesSpawnMaxTimer = 17, powerupsTimer = 1;
 
     public Transform parent;
 
@@ -51,6 +53,8 @@ public class ObjectSpawner : MonoBehaviour
             StartCoroutine(SpawnHousesTimer());
 
             StartCoroutine(SpawnElvesTimer());
+
+            StartCoroutine(SpawnPowerupsTimer());
         }
     }
 
@@ -144,17 +148,6 @@ public class ObjectSpawner : MonoBehaviour
             obj.GetComponent<HouseBehavior>().alpha = alpha;
 
             spawnedObjects.Add(obj);
-
-            spawnedObjects.RemoveAll((_obj) => _obj == null);
-
-            foreach (GameObject house in spawnedObjects.ToList())
-            {
-                if(house.transform.position.x < player.transform.position.x - 20f)
-                {
-                    spawnedObjects.Remove(house);
-                    Destroy(house);
-                }
-            }
         }
     }
 
@@ -183,6 +176,29 @@ public class ObjectSpawner : MonoBehaviour
 
                 SpawnedElf = obj.transform;
             }
+        }
+    }
+
+    IEnumerator SpawnPowerupsTimer()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(powerupsTimer);
+
+            if (Utility.instance.isGameOver)
+                yield break;
+
+            Vector3 pos = GetRandomPos(SpawningType.Normal);
+            
+            GameObject obj = Instantiate(powerups[Random.Range(0, elves.Count - 1)]);
+
+            obj.transform.position = pos;
+
+            obj.transform.position += new Vector3(0, obj.transform.lossyScale.y / 2, 0);
+
+            obj.transform.parent = parent;
+                
+            spawnedObjects.Add(obj);
         }
     }
 }

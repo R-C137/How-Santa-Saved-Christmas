@@ -18,6 +18,8 @@ public class GiftSystem : MonoBehaviour
 
     public GameObject oldGift = null;
 
+    public TextMeshProUGUI gifsCounter;
+
     public void Awake()
     {
         Utility.instance.onGameOver += OnGameOver;
@@ -50,6 +52,8 @@ public class GiftSystem : MonoBehaviour
     {
         if(Utility.instance.isGameOver)
             return;;
+
+        gifsCounter.text = $"{giftsDropped} Gifts";
 
         timeElasped = timeElasped.AddSeconds(Time.deltaTime);
 

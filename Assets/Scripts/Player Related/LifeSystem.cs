@@ -16,6 +16,23 @@ public class LifeSystem : MonoBehaviour
         }
     }
 
+    public void AddLife()
+    {
+        if(lives == 3)
+            return;
+
+        int index = lives;
+
+        hearts[index].SetActive(true);
+
+        LeanTween.size(hearts[index].transform as RectTransform, new Vector2(150, 150), .2f).setOnComplete(() =>
+        {
+            LeanTween.size(hearts[index].transform as RectTransform, new Vector2(100, 100), .3f);
+        });
+
+        lives++;
+    }
+
     public void RemoveLife()
     {
         int index = lives - 1;
