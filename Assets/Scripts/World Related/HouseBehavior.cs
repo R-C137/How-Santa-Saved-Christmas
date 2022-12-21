@@ -45,12 +45,11 @@ public class HouseBehavior : SpawnedObjectBehaviour
             return;;
         if (other.CompareTag("Player"))
         {
-            var dg = other.GetComponent<DropGifts>();
+            var dg = other.GetComponent<GiftSystem>();
 
             if (Input.GetButton("Jump") && HouseColor.CompareRGB(dg.CurrentColor) /*&& canDrop*/)
             {
-                dg.giftsDropped++;
-                dg.GiftsDroppedTxt.text = "gifts dropped: " + dg.giftsDropped;
+                dg.DropGift();
                 Gifted = true;
                 //canDrop = false;
                 //StartCoroutine(ResetDrop());

@@ -21,11 +21,14 @@ public class ElfBehavior : SpawnedObjectBehaviour
         lateralMovementSpeed = playerMovement.rightLeftMovementSpeed;
         speed = playerMovement.speed;
 
+        destroySelfOnOverlap = false;
+
         StartCoroutine(WaitForAttack());
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
 
         this.transform.position += speed * Time.deltaTime * transform.right;
 
@@ -36,7 +39,6 @@ public class ElfBehavior : SpawnedObjectBehaviour
         if (!movementBounds.bounds.Contains(transform.position))
         {
             lateralMovementSpeed = -lateralMovementSpeed;
-            print(lateralMovementSpeed);
         }
     }
 
@@ -52,13 +54,6 @@ public class ElfBehavior : SpawnedObjectBehaviour
 
     public override void OnPlayerTrigger(Collider playerCollider)
     {
-        var lifeSystem = playerCollider.gameObject.GetComponent<LifeSystem>();
-
-        if (lifeSystem.lives == 0)
-        {
-            Utility.instance.SetGameOver();
-        }
-        else
-            lifeSystem.lives--;
+        playerCollider.gameObject.GetComponent<LifeSystem>().RemoveLife();
     }
 }

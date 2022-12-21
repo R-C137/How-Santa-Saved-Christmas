@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,16 @@ public class Utility : MonoBehaviour
 
     public event GameOver onGameOver;
 
+    public DateTime totalTime;
+
     void Awake()
     {
         if(instance == null)
             instance = this;
         else
             Destroy(this);
+
+        DontDestroyOnLoad(this);
     }
 
     public void SetGameOver()

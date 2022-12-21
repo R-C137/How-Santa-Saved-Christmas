@@ -34,7 +34,7 @@ public class ObjectSpawner : MonoBehaviour
     public Collider elfBounds;
 
     //WILL CAUSE AN INFINITE WHILE LOOP IF SET TO 0 AND POSSIBLY AN ERROR IF SET TO LESS
-    public float spawnTimer = 1, houseSpawnTimer = 1, elvesSpawnTimer = 1;
+    public float spawnTimer = 1, houseSpawnTimer = 1, elvesSpawnMinTimer = 5, elvesSpawnMaxTimer = 17;
 
     public Transform parent;
 
@@ -64,7 +64,6 @@ public class ObjectSpawner : MonoBehaviour
                 Random.Range(bounds.bounds.min.z, bounds.bounds.max.z)
             );
         } 
-
         if(spawningType == SpawningType.House)
         {
             int RandomNum = Random.Range(0, 2);
@@ -76,7 +75,6 @@ public class ObjectSpawner : MonoBehaviour
                 selectedLane
                 );
         }
-
         if(spawningType == SpawningType.Elf)
         {
             //random position in the elfbounds area
@@ -86,7 +84,7 @@ public class ObjectSpawner : MonoBehaviour
                 Random.Range(elfBounds.bounds.min.z, elfBounds.bounds.max.z)
             );
         }
-        else { return Vector3.zero; }
+        else { return Vector3.zero; } // Else should never be hit but can't remove
     }
 
     IEnumerator SpawnObjectsTimer()
@@ -94,6 +92,9 @@ public class ObjectSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnTimer);
+
+            if (Utility.instance.isGameOver)
+                yield break;
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
 
@@ -130,6 +131,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(houseSpawnTimer);
 
+            if (Utility.instance.isGameOver)
+                yield break;
+
             Vector3 pos = GetRandomPos(SpawningType.House);
 
             GameObject obj = Instantiate(houses[Random.Range(0, houses.Count - 1)]);
@@ -158,11 +162,15 @@ public class ObjectSpawner : MonoBehaviour
     {
         while (true)
         {
-            //i'm restr
+            //i'm restr. C137 = You're what ?
             
-                yield return new WaitForSeconds(elvesSpawnTimer);
+            yield return new WaitForSeconds(Random.Range(elvesSpawnMinTimer, elvesSpawnMaxTimer));
 
-                Vector3 pos = GetRandomPos(SpawningType.Elf);
+            if (Utility.instance.isGameOver)
+                yield break;
+
+            Vector3 pos = GetRandomPos(SpawningType.Elf);
+
             if (SpawnedElf == null)
             {
                 GameObject obj = Instantiate(elves[Random.Range(0, elves.Count - 1)]);
@@ -174,9 +182,6 @@ public class ObjectSpawner : MonoBehaviour
                 obj.transform.parent = parent;
 
                 SpawnedElf = obj.transform;
-            } else
-            {
-                print("X");
             }
         }
     }

@@ -24,7 +24,7 @@ public class SpawnedObjectBehaviour : MonoBehaviour
 
     }
 
-    public void Update()
+    public virtual void Update()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position, overlapingSize);
 
