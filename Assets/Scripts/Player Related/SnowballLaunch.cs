@@ -11,6 +11,9 @@ public class SnowballLaunch : MonoBehaviour
 
     void Update()
     {
+        if (Utility.instance.isGameOver)
+            return;
+
         // Check if the left mouse button is being pressed
         if (Input.GetMouseButtonDown(0))
         {
