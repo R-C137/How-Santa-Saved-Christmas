@@ -6,6 +6,9 @@ using TMPro;
 
 public class GiftSystem : MonoBehaviour
 {
+    public AudioClip GiftSFX;
+    public AudioManagement AudioSystem;
+
     public CandyCaneSystem candyCaneSystem;
 
     public Color CurrentColor;
@@ -92,6 +95,10 @@ public class GiftSystem : MonoBehaviour
     {
         giftsDropped++;
         candyCaneSystem.GiftDropped(giftsDropped);
+        // when a gift is dropped, play the animation
+        this.GetComponent<Animator>().SetTrigger("DropGift");
+
+        AudioSystem.PlaySFX(GiftSFX);
     }
 
 }

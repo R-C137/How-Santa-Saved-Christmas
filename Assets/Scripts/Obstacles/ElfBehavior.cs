@@ -18,6 +18,7 @@ public class ElfBehavior : SpawnedObjectBehaviour
 
     private void Start()
     {
+
         lateralMovementSpeed = playerMovement.rightLeftMovementSpeed;
         speed = playerMovement.speed;
 
@@ -28,6 +29,7 @@ public class ElfBehavior : SpawnedObjectBehaviour
 
     public override void Update()
     {
+
         base.Update();
 
         this.transform.position += speed * Time.deltaTime * transform.right;
@@ -51,6 +53,7 @@ public class ElfBehavior : SpawnedObjectBehaviour
         yield return new WaitForSeconds(AttackTime + 4);
         Destroy(this.gameObject);
     }
+
 
     public override void OnPlayerTrigger(Collider playerCollider)
     {

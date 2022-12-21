@@ -15,6 +15,9 @@ public enum SpawningType
 
 public class ObjectSpawner : MonoBehaviour
 {
+    public AudioManagement AudioSystem;
+    public AudioClip Laugh;
+
     public float leftPos, rightPos;
 
     public bool shoudSpawn = true;
@@ -165,6 +168,9 @@ public class ObjectSpawner : MonoBehaviour
 
             if (SpawnedElf == null)
             {
+                //when the elf is spawned, it will laugh
+                AudioSystem.PlaySFX(Laugh);
+
                 GameObject obj = Instantiate(elves[Random.Range(0, elves.Count - 1)]);
 
                 obj.GetComponent<ElfBehavior>().playerMovement = player.GetComponentInParent<MovementSystem>();
