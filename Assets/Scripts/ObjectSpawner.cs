@@ -9,7 +9,8 @@ using UnityEngine;
 public enum SpawningType
 {
     Normal,
-    House
+    House,
+    Elf
 }
 
 public class ObjectSpawner : MonoBehaviour
@@ -18,18 +19,22 @@ public class ObjectSpawner : MonoBehaviour
 
     public bool shoudSpawn = true;
 
-    public Transform player;
+    public Transform player, SpawnedElf;
 
     public List<GameObject> objects = new();
 
     public List<GameObject> houses = new();
 
+    public List<GameObject> elves = new();
+
     public List<GameObject> spawnedObjects = new();
 
     public Collider bounds;
+    //the bounds where elves can spawn (it's the child of Spawn Area's gameobject)
+    public Collider elfBounds;
 
     //WILL CAUSE AN INFINITE WHILE LOOP IF SET TO 0 AND POSSIBLY AN ERROR IF SET TO LESS
-    public float spawnTimer = 1, houseSpawnTimer = 1;
+    public float spawnTimer = 1, houseSpawnTimer = 1, elvesSpawnTimer = 1;
 
     public Transform parent;
 
@@ -37,11 +42,15 @@ public class ObjectSpawner : MonoBehaviour
 
     public void Awake()
     {
+        SpawnedElf = null;
+
         if (shoudSpawn)
         {
             StartCoroutine(SpawnObjectsTimer());
 
             StartCoroutine(SpawnHousesTimer());
+
+            StartCoroutine(SpawnElvesTimer());
         }
     }
 
@@ -66,6 +75,16 @@ public class ObjectSpawner : MonoBehaviour
                 20,
                 selectedLane
                 );
+        }
+
+        if(spawningType == SpawningType.Elf)
+        {
+            //random position in the elfbounds area
+            return new Vector3(
+                Random.Range(elfBounds.bounds.min.x, elfBounds.bounds.max.x),
+                5,
+                Random.Range(elfBounds.bounds.min.z, elfBounds.bounds.max.z)
+            );
         }
         else { return Vector3.zero; }
     }
@@ -131,6 +150,33 @@ public class ObjectSpawner : MonoBehaviour
                     spawnedObjects.Remove(house);
                     Destroy(house);
                 }
+            }
+        }
+    }
+
+    IEnumerator SpawnElvesTimer()
+    {
+        while (true)
+        {
+            //i'm restr
+            
+                yield return new WaitForSeconds(elvesSpawnTimer);
+
+                Vector3 pos = GetRandomPos(SpawningType.Elf);
+            if (SpawnedElf == null)
+            {
+                GameObject obj = Instantiate(elves[Random.Range(0, elves.Count - 1)]);
+
+                obj.GetComponent<ElfBehavior>().playerMovement = player.GetComponentInParent<MovementSystem>();
+
+                obj.transform.position = pos;
+
+                obj.transform.parent = parent;
+
+                SpawnedElf = obj.transform;
+            } else
+            {
+                print("X");
             }
         }
     }
