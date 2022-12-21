@@ -21,7 +21,7 @@ public class ObjectSpawner : MonoBehaviour
 
     public Transform player, SpawnedElf;
 
-    public List<GameObject> objects = new();
+    public List<GameObject> obstacles = new();
 
     public List<GameObject> houses = new();
 
@@ -36,7 +36,7 @@ public class ObjectSpawner : MonoBehaviour
     public Collider elfBounds;
 
     //WILL CAUSE AN INFINITE WHILE LOOP IF SET TO 0 AND POSSIBLY AN ERROR IF SET TO LESS
-    public float spawnTimer = 1, houseSpawnTimer = 1, elvesSpawnMinTimer = 5, elvesSpawnMaxTimer = 17, powerupsTimer = 1;
+    public float obstaclesSpawnTimer = 1, houseSpawnTimer = 1, elvesSpawnMinTimer = 5, elvesSpawnMaxTimer = 17, powerupsTimer = 1;
 
     public Transform parent;
 
@@ -48,7 +48,7 @@ public class ObjectSpawner : MonoBehaviour
 
         if (shoudSpawn)
         {
-            StartCoroutine(SpawnObjectsTimer());
+            StartCoroutine(SpawnObstaclesTimer());
 
             StartCoroutine(SpawnHousesTimer());
 
@@ -88,27 +88,26 @@ public class ObjectSpawner : MonoBehaviour
                 Random.Range(elfBounds.bounds.min.z, elfBounds.bounds.max.z)
             );
         }
-        else { return Vector3.zero; } // Else should never be hit but can't remove
+        else { return Vector3.zero; } // Else should never be hit but can't be removed
     }
 
-    IEnumerator SpawnObjectsTimer()
+    IEnumerator SpawnObstaclesTimer()
     {
         while (true)
         {
-            yield return new WaitForSeconds(spawnTimer);
+            yield return new WaitForSeconds(obstaclesSpawnTimer);
 
             if (Utility.instance.isGameOver)
                 yield break;
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
 
-            GameObject obj = Instantiate(objects[Random.Range(0, objects.Count - 1)]);
+            GameObject obj = Instantiate(obstacles[Random.Range(0, obstacles.Count - 1)]);
 
             obj.transform.position = pos;
 
-            obj.transform.position += new Vector3(0, obj.transform.lossyScale.y / 2, 0);
-
-            //obj.GetComponent<SpawnedObjectBehaviour>().CheckCollision();
+            if(obj.GetComponent<SpawnedObjectBehaviour>().compensateForHeight)
+                obj.transform.position += new Vector3(0, obj.transform.lossyScale.y / 2, 0);
 
             obj.transform.parent = parent;
 

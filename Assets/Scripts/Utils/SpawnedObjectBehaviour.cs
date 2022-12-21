@@ -6,6 +6,8 @@ using UnityEngine;
 public class SpawnedObjectBehaviour : MonoBehaviour
 {
     public bool destroySelfOnOverlap = true;
+    
+    public bool compensateForHeight = true;
 
     public bool destroying;
 

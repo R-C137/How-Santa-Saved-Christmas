@@ -16,14 +16,19 @@ public class Utility : MonoBehaviour
 
     public DateTime totalTime;
 
+    public int playerLevel;
+
     void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
             Destroy(this);
+    }
 
-        DontDestroyOnLoad(this);
+    void Start()
+    {
+        playerLevel = PlayerPrefs.GetInt("PlayerLevel", 0);
     }
 
     public void SetGameOver()

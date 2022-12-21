@@ -6,6 +6,8 @@ using TMPro;
 
 public class GiftSystem : MonoBehaviour
 {
+    public CandyCaneSystem candyCaneSystem;
+
     public Color CurrentColor;
 
     public int giftsDropped;
@@ -53,11 +55,11 @@ public class GiftSystem : MonoBehaviour
         if(Utility.instance.isGameOver)
             return;;
 
-        gifsCounter.text = $"{giftsDropped} Gifts";
+        gifsCounter.text = $"{giftsDropped}/{Mathf.RoundToInt(candyCaneSystem.giftsNeededCurve.Evaluate(Utility.instance.playerLevel))} Gifts";
 
         timeElasped = timeElasped.AddSeconds(Time.deltaTime);
 
-        timer.text = $"{timeElasped.Minute + timeElasped.Hour * 60}:{timeElasped.Second}:{timeElasped.Millisecond}";
+        timer.text = $"{timeElasped.Minute + timeElasped.Hour * 60}:{timeElasped.Second}";
 
         if (Input.GetKeyDown(KeyCode.Alpha1)/* && !hasChosen*/)
         {
@@ -89,6 +91,7 @@ public class GiftSystem : MonoBehaviour
     public void DropGift()
     {
         giftsDropped++;
+        candyCaneSystem.GiftDropped(giftsDropped);
     }
 
 }
