@@ -6,6 +6,8 @@ using UnityEngine;
 public class SpawnedObjectBehaviour : MonoBehaviour
 {
     public bool destroySelfOnOverlap = true;
+    
+    public bool compensateForHeight = true;
 
     public bool destroying;
 
@@ -24,7 +26,7 @@ public class SpawnedObjectBehaviour : MonoBehaviour
 
     }
 
-    public void Update()
+    public virtual void Update()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position, overlapingSize);
 
