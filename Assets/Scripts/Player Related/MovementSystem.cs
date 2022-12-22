@@ -13,20 +13,27 @@ public class MovementSystem : MonoBehaviour
 
     public float rightLeftMovementSpeed;
 
-    public bool stopped;
+    public bool stopped = true;
 
     public Collider movementBounds;
 
     private Vector3 oldPos;
 
+    public GameObject blizzardNear;
+    public GameObject blizzardFar;
+
     void Start()
     {
-        Utility.instance.onGameOver += OnGameOver;
-    }
+        Utility.instance.onGameOver += () => stopped = true;
 
-    private void OnGameOver()
-    {
-        stopped = true;
+        Utility.instance.onRunEnded += () => stopped = true;
+
+        Utility.instance.onGameStarted += () => stopped = false;
+
+        Utility.instance.onGamePaused += () => stopped = true;
+
+        Utility.instance.onGameUnPaused += () => stopped = false;
+
     }
 
     public void Update()
@@ -51,6 +58,10 @@ public class MovementSystem : MonoBehaviour
 
         spawnArea.transform.position = new Vector3(spawnArea.transform.position.x, spawnArea.transform.position.y, 0);
         movementBounds.transform.position = new Vector3(movementBounds.transform.position.x, movementBounds.transform.position.y, 0);
+
+        blizzardNear.transform.position = new Vector3(blizzardNear.transform.position.x, blizzardNear.transform.position.y, 0);
+        blizzardFar.transform.position = new Vector3(blizzardFar.transform.position.x, blizzardFar.transform.position.y, 0);
+
 
         if (!movementBounds.bounds.Contains(player.transform.position))
         {

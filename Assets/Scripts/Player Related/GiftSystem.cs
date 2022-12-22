@@ -6,7 +6,10 @@ using TMPro;
 
 public class GiftSystem : MonoBehaviour
 {
+    public TutorialManager tmgr;
+
     public AudioClip GiftSFX;
+
     public AudioManagement AudioSystem;
 
     public CandyCaneSystem candyCaneSystem;
@@ -14,10 +17,6 @@ public class GiftSystem : MonoBehaviour
     public Color CurrentColor;
 
     public int giftsDropped;
-
-    public TextMeshProUGUI timer;
-
-    private DateTime timeElasped;
 
     public List<GameObject> giftsUI = new();
 
@@ -27,16 +26,10 @@ public class GiftSystem : MonoBehaviour
 
     public void Awake()
     {
-        Utility.instance.onGameOver += OnGameOver;
-
         CurrentColor = Color.green;
         SetSelected(giftsUI[0]);
     }
-
-    private void OnGameOver()
-    {
-        Utility.instance.totalTime = timeElasped;
-    }
+    
 
     void SetSelected(GameObject obj)
     {
@@ -59,10 +52,6 @@ public class GiftSystem : MonoBehaviour
             return;;
 
         gifsCounter.text = $"{giftsDropped}/{Mathf.RoundToInt(candyCaneSystem.giftsNeededCurve.Evaluate(Utility.instance.playerLevel))} Gifts";
-
-        timeElasped = timeElasped.AddSeconds(Time.deltaTime);
-
-        timer.text = $"{timeElasped.Minute + timeElasped.Hour * 60}:{timeElasped.Second}";
 
         if (Input.GetKeyDown(KeyCode.Alpha1)/* && !hasChosen*/)
         {
@@ -91,14 +80,31 @@ public class GiftSystem : MonoBehaviour
         }
     }
 
-    public void DropGift()
+    public void DropGift(bool right)
     {
+        if(Utility.instance.levelFinished)
+            return;
+
         giftsDropped++;
-        candyCaneSystem.GiftDropped(giftsDropped);
+
+        PlayerPrefs.SetInt("GiftsTotal", giftsDropped);
+
+        candyCaneSystem.GiftDropped(ref giftsDropped);
         // when a gift is dropped, play the animation
-        this.GetComponent<Animator>().SetTrigger("DropGift");
+
+        if (right)
+        {
+            //House is on the right lane
+            this.GetComponent<Animator>().SetTrigger("DropGift");
+        }
+        else
+        {
+            //House is on the left
+        }
 
         AudioSystem.PlaySFX(GiftSFX);
+
+        tmgr.GiftDropped();
     }
 
 }

@@ -24,13 +24,17 @@ public class ObjectSpawner : MonoBehaviour
 
     public Transform player, SpawnedElf;
 
-    public List<GameObject> obstacles = new();
+    public List<LeveledObject> leveledObstacles = new();
+
+    List<GameObject> obstacles = new();
 
     public List<GameObject> houses = new();
 
     public List<GameObject> elves = new();
 
-    public List<GameObject> powerups = new();
+    public List<LeveledObject> leveledPwerups = new();
+
+    List<GameObject> powerups = new();
 
     public List<GameObject> spawnedObjects = new();
 
@@ -45,53 +49,85 @@ public class ObjectSpawner : MonoBehaviour
 
     public float alpha;
 
+    private Coroutine obstaclesRoutine, HousesRoutine, ElvesRoutines, PowerupsRoutine;
+
+    public TutorialManager tmgr;
+
     public void Awake()
     {
         SpawnedElf = null;
 
-        if (shoudSpawn)
+        if (!shoudSpawn) return;
+
+        Utility.instance.onGameStarted += () =>
         {
-            StartCoroutine(SpawnObstaclesTimer());
+            obstaclesRoutine = StartCoroutine(SpawnObstaclesTimer());
+            HousesRoutine = StartCoroutine(SpawnHousesTimer());
+            ElvesRoutines = StartCoroutine(SpawnElvesTimer());
+            PowerupsRoutine = StartCoroutine(SpawnPowerupsTimer());
+        };
 
-            StartCoroutine(SpawnHousesTimer());
+        Utility.instance.onGamePaused += () =>
+        {
+            StopCoroutine(obstaclesRoutine);
+            StopCoroutine(HousesRoutine);
+            StopCoroutine(ElvesRoutines);
+            StopCoroutine(PowerupsRoutine);
+        };
 
-            StartCoroutine(SpawnElvesTimer());
+        Utility.instance.onGameUnPaused += () =>
+        {
+            obstaclesRoutine = StartCoroutine(SpawnObstaclesTimer());
+            HousesRoutine = StartCoroutine(SpawnHousesTimer());
+            ElvesRoutines = StartCoroutine(SpawnElvesTimer());
+            PowerupsRoutine = StartCoroutine(SpawnPowerupsTimer());
+        };
+    }
 
-            StartCoroutine(SpawnPowerupsTimer());
+    void Start()
+    {
+        foreach (var leveledObject in leveledObstacles.Where(leveledObject => leveledObject.levelNeeded <= Utility.instance.playerLevel))
+        {
+            obstacles.Add(leveledObject.prefab);
+        }
+
+        foreach (var leveledObject in leveledPwerups.Where(leveledObject => leveledObject.levelNeeded <= Utility.instance.playerLevel))
+        {
+            powerups.Add(leveledObject.prefab);
         }
     }
 
     public Vector3 GetRandomPos(SpawningType spawningType)
     {
-        if(spawningType == SpawningType.Normal)
+        switch (spawningType)
         {
-            return new Vector3(
-                Random.Range(bounds.bounds.min.x, bounds.bounds.max.x),
-                Random.Range(bounds.bounds.min.y, bounds.bounds.max.y),
-                Random.Range(bounds.bounds.min.z, bounds.bounds.max.z)
-            );
-        } 
-        if(spawningType == SpawningType.House)
-        {
-            int RandomNum = Random.Range(0, 2);
-            float selectedLane = RandomNum == 0 ? leftPos : rightPos;
-
-            return new Vector3(
-                Random.Range(bounds.bounds.min.x, bounds.bounds.max.x),
-                20,
-                selectedLane
+            case SpawningType.Normal:
+                return new Vector3(
+                    Random.Range(bounds.bounds.min.x, bounds.bounds.max.x),
+                    Random.Range(bounds.bounds.min.y, bounds.bounds.max.y),
+                    Random.Range(bounds.bounds.min.z, bounds.bounds.max.z)
                 );
+            case SpawningType.House:
+            {
+                int RandomNum = Random.Range(0, 2);
+                float selectedLane = RandomNum == 0 ? leftPos : rightPos;
+
+                return new Vector3(
+                    Random.Range(bounds.bounds.min.x, bounds.bounds.max.x),
+                    20,
+                    selectedLane
+                );
+            }
+            case SpawningType.Elf:
+                //random position in the elfbounds area
+                return new Vector3(
+                    Random.Range(elfBounds.bounds.min.x, elfBounds.bounds.max.x),
+                    5,
+                    Random.Range(elfBounds.bounds.min.z, elfBounds.bounds.max.z)
+                );
+            default:
+                return Vector3.zero; // This should never be hit but can't be removed
         }
-        if(spawningType == SpawningType.Elf)
-        {
-            //random position in the elfbounds area
-            return new Vector3(
-                Random.Range(elfBounds.bounds.min.x, elfBounds.bounds.max.x),
-                5,
-                Random.Range(elfBounds.bounds.min.z, elfBounds.bounds.max.z)
-            );
-        }
-        else { return Vector3.zero; } // Else should never be hit but can't be removed
     }
 
     IEnumerator SpawnObstaclesTimer()
@@ -100,8 +136,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(obstaclesSpawnTimer);
 
-            if (Utility.instance.isGameOver)
+            if (Utility.instance.isGameOver || Utility.instance.runEnded)
                 yield break;
+
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
 
@@ -137,8 +174,9 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(houseSpawnTimer);
 
-            if (Utility.instance.isGameOver)
+            if (Utility.instance.isGameOver || Utility.instance.runEnded)
                 yield break;
+
 
             Vector3 pos = GetRandomPos(SpawningType.House);
 
@@ -161,8 +199,9 @@ public class ObjectSpawner : MonoBehaviour
             
             yield return new WaitForSeconds(Random.Range(elvesSpawnMinTimer, elvesSpawnMaxTimer));
 
-            if (Utility.instance.isGameOver)
+            if (Utility.instance.isGameOver || Utility.instance.runEnded)
                 yield break;
+
 
             Vector3 pos = GetRandomPos(SpawningType.Elf);
 
@@ -180,6 +219,8 @@ public class ObjectSpawner : MonoBehaviour
                 obj.transform.parent = parent;
 
                 SpawnedElf = obj.transform;
+
+                tmgr.ElfSpawned();
             }
         }
     }
@@ -190,7 +231,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(powerupsTimer);
 
-            if (Utility.instance.isGameOver)
+            if (Utility.instance.isGameOver || Utility.instance.runEnded)
                 yield break;
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
