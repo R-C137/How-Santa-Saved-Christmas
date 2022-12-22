@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SnowballLaunch : MonoBehaviour
 {
+    public AudioManagement AudioSystem;
+    public AudioClip Swing;
+
     public float yOffset;
     public GameObject bulletPrefab; // Prefab for the bullet to be spawned
     public float fireStrength = 10f; // The strength with which the bullet will be fired
@@ -17,6 +20,8 @@ public class SnowballLaunch : MonoBehaviour
         // Check if the left mouse button is being pressed
         if (Input.GetMouseButtonDown(0))
         {
+            AudioSystem.PlaySFX(Swing);
+
             // Get the mouse position in world space
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.farClipPlane));
