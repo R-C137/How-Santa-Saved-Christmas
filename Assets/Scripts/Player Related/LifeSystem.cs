@@ -8,12 +8,16 @@ public class LifeSystem : MonoBehaviour
 
     public List<GameObject> hearts = new();
 
+    public bool canLoseLife = true;
+
     public void Start()
     {
         for (int i = 0; i < lives; i++)
         {
             hearts[i].SetActive(true);
         }
+
+        Utility.instance.onRunEnded += () => canLoseLife = false;
     }
 
     public void AddLife()
@@ -25,6 +29,9 @@ public class LifeSystem : MonoBehaviour
 
         hearts[index].SetActive(true);
 
+        if (LeanTween.isTweening(hearts[index]))
+            LeanTween.cancel(hearts[index]);
+
         LeanTween.size(hearts[index].transform as RectTransform, new Vector2(150, 150), .2f).setOnComplete(() =>
         {
             LeanTween.size(hearts[index].transform as RectTransform, new Vector2(100, 100), .3f);
@@ -35,7 +42,13 @@ public class LifeSystem : MonoBehaviour
 
     public void RemoveLife()
     {
+        if(!canLoseLife)
+            return;
+
         int index = lives - 1;
+
+        if (LeanTween.isTweening(hearts[index]))
+            LeanTween.cancel(hearts[index]);
 
         LeanTween.size(hearts[index].transform as RectTransform, new Vector2(150, 150), .2f).setOnComplete(() =>
         {

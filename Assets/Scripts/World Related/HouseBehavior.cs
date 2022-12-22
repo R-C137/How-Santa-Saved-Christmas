@@ -17,7 +17,7 @@ public class HouseBehavior : SpawnedObjectBehaviour
     {
         SR = GetComponent<Renderer>().material;
 
-        int colorIndex = Random.Range(0, 3);
+        int colorIndex = Random.Range(0, 4);
 
         switch (colorIndex)
         {
@@ -49,7 +49,9 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
             if (Input.GetButton("Jump") && HouseColor.CompareRGB(dg.CurrentColor) /*&& canDrop*/)
             {
-                dg.DropGift();
+                bool right = transform.position.z == 9;
+
+                dg.DropGift(right);
                 Gifted = true;
                 //canDrop = false;
                 //StartCoroutine(ResetDrop());
