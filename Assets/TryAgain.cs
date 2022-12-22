@@ -9,4 +9,9 @@ public class TryAgain : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void QuitPressed()
+    {
+        Application.Quit();
+    }
 }

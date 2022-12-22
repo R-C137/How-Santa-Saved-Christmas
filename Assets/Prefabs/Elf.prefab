@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631126111c4ac8547a2892aaae33d2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroySelfOnOverlap: 0
+  destroying: 0
+  overlapingSize: {x: 0, y: 0, z: 0}
   AttackSpeed: 30
   AttackTime: 4
   playerMovement: {fileID: 0}
