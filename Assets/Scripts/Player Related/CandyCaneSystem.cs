@@ -26,7 +26,7 @@ public class CandyCaneSystem : MonoBehaviour
         {
             candyCaneCollected++;
 
-            PlayerPrefs.SetInt("CandyCanesTotal", candyCaneCollected);
+            PlayerPrefs.SetInt("CandyCanesTotal", PlayerPrefs.GetInt("CandyCanesTotal") + candyCaneCollected);
 
             candyCaneCounter.text =
                 $"{candyCaneCollected}/{Mathf.RoundToInt(candyCaneNeededCurve.Evaluate(Utility.instance.playerLevel))}";
