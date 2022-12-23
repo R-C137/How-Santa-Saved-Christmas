@@ -73,18 +73,10 @@ public class GiftSystem : MonoBehaviour
             CurrentColor = new Color32(255, 255, 0, 255);
             SetSelected(giftsUI[3]);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5)/* && !hasChosen*/)
-        {
-            CurrentColor = Color.black;
-            SetSelected(giftsUI[4]);
-        }
     }
 
     public void DropGift(bool right)
     {
-        if(Utility.instance.levelFinished)
-            return;
-
         giftsDropped++;
 
         PlayerPrefs.SetInt("GiftsTotal", giftsDropped);

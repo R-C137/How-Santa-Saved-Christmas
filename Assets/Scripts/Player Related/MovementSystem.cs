@@ -56,7 +56,7 @@ public class MovementSystem : MonoBehaviour
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * transform.forward;
-
+            
             if (timeElapsed < tiltSpeed)
             {
                 playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, maxCamTilt, timeElapsed / tiltSpeed);
@@ -67,6 +67,8 @@ public class MovementSystem : MonoBehaviour
                 timeElapsed = 0;
                 playerCam.m_Lens.Dutch = maxCamTilt;
             }
+            if(player.transform.position.z > 8)
+                player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         }
 
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -83,6 +85,9 @@ public class MovementSystem : MonoBehaviour
                 timeElapsed = 0;
                 playerCam.m_Lens.Dutch = -maxCamTilt;
             }
+            
+            if(player.transform.position.z < -8)
+            player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         }
         else
         {
@@ -92,15 +97,16 @@ public class MovementSystem : MonoBehaviour
         
 
         spawnArea.transform.position = new Vector3(spawnArea.transform.position.x, spawnArea.transform.position.y, 0);
-        movementBounds.transform.position = new Vector3(movementBounds.transform.position.x, movementBounds.transform.position.y, 0);
+        //movementBounds.transform.position = new Vector3(movementBounds.transform.position.x, movementBounds.transform.position.y, 0);
 
         blizzardNear.transform.position = new Vector3(blizzardNear.transform.position.x, blizzardNear.transform.position.y, 0);
         blizzardFar.transform.position = new Vector3(blizzardFar.transform.position.x, blizzardFar.transform.position.y, 0);
 
 
-        if (!movementBounds.bounds.Contains(player.transform.position))
-        {
-            player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
-        }
+        //if (!movementBounds.bounds.Contains(player.transform.position))
+        //{
+        //    player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
+        //}
+
     }
 }
