@@ -26,6 +26,8 @@ public class TextWriter : MonoBehaviour
 
     public bool destroySelfOnEnd;
 
+    public AudioSource gibberishSFX;
+
     void Start()
     {
         textShower = GetComponent<TextMeshProUGUI>();
@@ -59,6 +61,11 @@ public class TextWriter : MonoBehaviour
             if(destroySelfOnEnd)
                 Destroy(transform.parent.gameObject);
         }
+
+        if(!finishedWriting && !gibberishSFX.isPlaying)
+            gibberishSFX.Play();
+        else if(finishedWriting && gibberishSFX.isPlaying)
+            gibberishSFX.Pause();
     }
 
     IEnumerator WriteText(string text)
