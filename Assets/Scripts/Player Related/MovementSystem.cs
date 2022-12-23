@@ -6,11 +6,6 @@ using Cinemachine;
 
 public class MovementSystem : MonoBehaviour
 {
-    public CinemachineVirtualCamera playerCam;
-    public int maxCamTilt;
-    public float tiltSpeed;
-    public float timeElapsed;
-    bool resetClick;
 
     public GameObject player;
 
@@ -43,6 +38,26 @@ public class MovementSystem : MonoBehaviour
 
     }
 
+    public void Slow()
+    {
+        float time = 8f;
+
+        float amount;
+
+        float level = PlayerPrefs.GetInt("TimeUpgradeCurrentLevel", 0);
+
+        if (level <= 1)
+            amount = 2f; //Normal length
+        else if (level == 2)
+            amount = 4f;
+        else if (level == 3)
+            amount = 8f;
+        else
+            amount = 10f;
+
+        StartCoroutine(SlowSpeed(amount));
+    }
+
     public void Update()
     {
         if(stopped)
@@ -58,37 +73,15 @@ public class MovementSystem : MonoBehaviour
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * transform.forward;
 
-            if (timeElapsed < tiltSpeed)
-            {
-                playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, maxCamTilt, timeElapsed / tiltSpeed);
-                timeElapsed += Time.deltaTime;
-            }
-            else
-            {
-                timeElapsed = 0;
-                playerCam.m_Lens.Dutch = maxCamTilt;
-            }
-
             if (player.transform.position.z > 8)
                 player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         }
-        else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * -transform.forward;
 
-            if (timeElapsed < tiltSpeed)
-            {
-                playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, -maxCamTilt, timeElapsed / tiltSpeed);
-                timeElapsed += Time.deltaTime;
-            }
-            else
-            {
-                timeElapsed = 0;
-                playerCam.m_Lens.Dutch = -maxCamTilt;
-            }
-
             if (player.transform.position.z < -8)
-            player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
+                player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         }
 
         spawnArea.transform.position = new Vector3(spawnArea.transform.position.x, spawnArea.transform.position.y, 0);
@@ -103,5 +96,21 @@ public class MovementSystem : MonoBehaviour
         //    player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         //}
 
+    }
+
+    IEnumerator SlowSpeed(float slow)
+    {
+        float oldSpeed = speed;
+        float oldRLSpeed = rightLeftMovementSpeed;
+
+        speed -= slow;
+
+        rightLeftMovementSpeed -= slow;
+
+        yield return new WaitForSeconds(slow);
+
+        speed = oldSpeed;
+
+        rightLeftMovementSpeed = oldRLSpeed;
     }
 }

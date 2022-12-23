@@ -62,6 +62,8 @@ public class Utility : MonoBehaviour
 
     public bool preGame = true;
 
+    public bool gameStarted;
+
     public GameObject TextHelper;
 
     public TextMeshProUGUI candytotal;
@@ -172,6 +174,8 @@ public class Utility : MonoBehaviour
 
         gameUI.SetActive(true);
         preGameUI.SetActive(false);
+
+        gameStarted = true;
     }
 
     public void SetPause(bool pause)

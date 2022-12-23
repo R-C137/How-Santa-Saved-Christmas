@@ -10,6 +10,8 @@ public class LifeSystem : MonoBehaviour
 
     public bool canLoseLife = true;
 
+    public bool shielded;
+
     public void Start()
     {
         for (int i = 0; i < lives; i++)
@@ -18,6 +20,28 @@ public class LifeSystem : MonoBehaviour
         }
 
         Utility.instance.onRunEnded += () => canLoseLife = false;
+    }
+
+    public void AddShield()
+    {
+        //TODO : Color the hearts blue
+
+        shielded = true;
+
+        float time;
+
+        float level = PlayerPrefs.GetInt("ShieldUpgradeCurrentLevel", 0);
+
+        if (level <= 1)
+            time = 3f; //Normal length
+        else if (level == 2)
+            time = 7f;
+        else if (level == 3)
+            time = 12f;
+        else
+            time = 17f;
+
+        StartCoroutine(ShieldTimer(time));
     }
 
     public void AddLife()
@@ -42,7 +66,7 @@ public class LifeSystem : MonoBehaviour
 
     public void RemoveLife()
     {
-        if(!canLoseLife)
+        if(!canLoseLife || shielded)
             return;
 
         int index = lives - 1;
@@ -63,5 +87,11 @@ public class LifeSystem : MonoBehaviour
         }
 
         lives--;
+    }
+
+    IEnumerator ShieldTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        shielded = false;
     }
 }
