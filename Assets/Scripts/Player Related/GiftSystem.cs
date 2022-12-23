@@ -70,7 +70,7 @@ public class GiftSystem : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)/* && !hasChosen*/)
         {
-            CurrentColor = Color.yellow;
+            CurrentColor = new Color32(255, 255, 0, 255);
             SetSelected(giftsUI[3]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5)/* && !hasChosen*/)

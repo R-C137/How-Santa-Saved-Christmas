@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Cinemachine;
 
 public class MovementSystem : MonoBehaviour
 {
+    public CinemachineVirtualCamera playerCam;
+    public int maxCamTilt;
+    public float tiltSpeed;
+    public float timeElapsed;
+    bool resetClick;
+
     public GameObject player;
 
     public Transform spawnArea;
@@ -45,16 +52,44 @@ public class MovementSystem : MonoBehaviour
 
         //Not transform.forward due to the front being on the transform.right
         player.transform.position += speed * Time.deltaTime * transform.right;
-        
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * transform.forward;
+
+            if (timeElapsed < tiltSpeed)
+            {
+                playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, maxCamTilt, timeElapsed / tiltSpeed);
+                timeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                timeElapsed = 0;
+                playerCam.m_Lens.Dutch = maxCamTilt;
+            }
         }
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * -transform.forward;
+
+            if (timeElapsed < tiltSpeed)
+            {
+                playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, -maxCamTilt, timeElapsed / tiltSpeed);
+                timeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                timeElapsed = 0;
+                playerCam.m_Lens.Dutch = -maxCamTilt;
+            }
         }
+        else
+        {
+            timeElapsed = 0;
+        }
+
+        
 
         spawnArea.transform.position = new Vector3(spawnArea.transform.position.x, spawnArea.transform.position.y, 0);
         movementBounds.transform.position = new Vector3(movementBounds.transform.position.x, movementBounds.transform.position.y, 0);
