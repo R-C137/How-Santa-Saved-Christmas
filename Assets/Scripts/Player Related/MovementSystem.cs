@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Cinemachine;
 
 public class MovementSystem : MonoBehaviour
 {
+    public CinemachineVirtualCamera playerCam;
+    public int maxCamTilt;
+    public float tiltSpeed;
+    public float timeElapsed;
+    bool resetClick;
+
     public GameObject player;
 
     public Transform spawnArea;
@@ -51,14 +58,36 @@ public class MovementSystem : MonoBehaviour
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * transform.forward;
 
-            if(player.transform.position.z > 8)
+            if (timeElapsed < tiltSpeed)
+            {
+                playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, maxCamTilt, timeElapsed / tiltSpeed);
+                timeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                timeElapsed = 0;
+                playerCam.m_Lens.Dutch = maxCamTilt;
+            }
+
+            if (player.transform.position.z > 8)
                 player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         }
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * -transform.forward;
 
-            if(player.transform.position.z < -8)
+            if (timeElapsed < tiltSpeed)
+            {
+                playerCam.m_Lens.Dutch = Mathf.Lerp(playerCam.m_Lens.Dutch, -maxCamTilt, timeElapsed / tiltSpeed);
+                timeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                timeElapsed = 0;
+                playerCam.m_Lens.Dutch = -maxCamTilt;
+            }
+
+            if (player.transform.position.z < -8)
             player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         }
 

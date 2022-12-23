@@ -9,7 +9,7 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
     public Material SR;
 
-    public float alpha = 255f;
+    public float alpha = 255;
 
     public bool Gifted;
 
@@ -22,21 +22,22 @@ public class HouseBehavior : SpawnedObjectBehaviour
         switch (colorIndex)
         {
             case 0:
-                HouseColor = Color.red;
+                HouseColor = new Color32(255, 0, 0, (byte)alpha); //red
                 break;
             case 1:
-                HouseColor = Color.blue;
+                HouseColor = new Color32(0, 255, 0, (byte)alpha); //green
                 break;
             case 2:
-                HouseColor = Color.green;
+                HouseColor = new Color32(0, 0, 255, (byte)alpha); //blue
                 break;
             case 3:
-                HouseColor = Color.yellow;
+                HouseColor = new Color32(255, 255, 0, (byte)alpha); //yellow
                 break;
 
         }
         
-        SR.color = new(HouseColor.r, HouseColor.g, HouseColor.b, alpha/255);
+        SR.color = new (HouseColor.r, HouseColor.g, HouseColor.b, HouseColor.a);
+        SR.SetColor("_EmissionColor", new Color((byte)HouseColor.r, (byte)HouseColor.g, (byte)HouseColor.b));
     }
 
     void OnTriggerStay(Collider other)
