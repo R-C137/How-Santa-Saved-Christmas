@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AudioManagement : MonoBehaviour
 {
-    public TextWriter TW;
     public static AudioManagement instance;
 
     public AudioClip BackgroundMusic;
@@ -31,30 +30,9 @@ public class AudioManagement : MonoBehaviour
         PlayMusic();
     }
 
-    private void Update()
-    {
-        if (musicSource.time == musicSource.clip.length - 2f )
-        {
-            PlayMusic();
-        }
-    }
     public void PlaySFX(AudioClip clip)
     {
         sfxSource.PlayOneShot(clip, sfxVolume);
-    }
-
-    public void PlayMuttering(AudioClip clip)
-    {
-        if(TW.finishedWriting == false)
-        {
-            sfxSource.clip = clip;
-            sfxSource.Play();
-        }
-        else
-        {
-            sfxSource.Stop();
-            return;
-        }
     }
 
     // Play music

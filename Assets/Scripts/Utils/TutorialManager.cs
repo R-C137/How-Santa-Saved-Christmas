@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    public TextWriter TW;
-
-    public AudioClip MutteringSFX;
-    public AudioManagement AudioSystem;
-
     public void ElfSpawned()
     {
         if (PlayerPrefs.GetInt("FirstTimeElf", 0) == 0)
@@ -19,8 +14,6 @@ public class TutorialManager : MonoBehaviour
                 {
                     "Look! an angry elf, you can click on him to throw a snowball. Don't forget to press enter before throwing"
                 }, true, () => Utility.instance.SetPause(false));
-
-            AudioSystem.PlayMuttering(MutteringSFX);
 
             Utility.instance.SetPause(true);
 

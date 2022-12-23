@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5501398215887003036}
   - component: {fileID: -4031520716195233054}
   - component: {fileID: 1580646339510129245}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: House
   m_TagString: House
   m_Icon: {fileID: 0}
@@ -119,12 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707da4dc01eb41b47aecdcd7d476b479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ded: {fileID: 0}
   destroySelfOnOverlap: 1
-  compensateForHeight: 1
   destroying: 0
   overlapingSize: {x: 100, y: 2, z: 16}
-  HouseColor: {r: 0, g: 0, b: 0, a: 1}
-  SR: {fileID: 2100000, guid: fb39ef3518647a541a4c0a73525a787e, type: 2}
+  HouseColor: {r: 0, g: 0, b: 0, a: 0}
+  SR: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   alpha: 255
   Gifted: 0
 --- !u!65 &1580646339510129245

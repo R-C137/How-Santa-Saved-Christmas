@@ -142,7 +142,7 @@ public class ObjectSpawner : MonoBehaviour
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
 
-            GameObject obj = Instantiate(obstacles[Random.Range(0, obstacles.Count)]);
+            GameObject obj = Instantiate(obstacles[Random.Range(0, obstacles.Count - 1)]);
 
             obj.transform.position = pos;
 
@@ -196,7 +196,6 @@ public class ObjectSpawner : MonoBehaviour
         while (true)
         {
             //i'm restr. C137 = You're what ?
-            //i'm deez nuts
             
             yield return new WaitForSeconds(Random.Range(elvesSpawnMinTimer, elvesSpawnMaxTimer));
 
