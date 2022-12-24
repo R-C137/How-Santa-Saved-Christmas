@@ -15,6 +15,7 @@ public class Utility : MonoBehaviour
     public delegate void GameOver();
 
     public event GameOver onGameOver;
+    public bool hasGameEnded;
     
     public delegate void RunEnded();
 
@@ -165,6 +166,7 @@ public class Utility : MonoBehaviour
     {
         gameUI.SetActive(false);
         runEnded = true;
+        hasGameEnded = true;
         onRunEnded?.Invoke();
     }
 

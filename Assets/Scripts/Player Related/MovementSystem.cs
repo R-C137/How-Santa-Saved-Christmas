@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class MovementSystem : MonoBehaviour
 {
+    public Image panel;
+    public float timeBeforeEndLevel;
+    public Utility util;
+
+    public Canvas GameCanvas;
 
     public GameObject player;
 
@@ -60,13 +66,22 @@ public class MovementSystem : MonoBehaviour
 
     public void Update()
     {
-        if(stopped)
+        if (Utility.instance.isPaused || !Utility.instance.gameStarted)
+            return;
+
+        if (stopped)
             return;
 
         oldPos = player.transform.position;
 
         //Not transform.forward due to the front being on the transform.right
         player.transform.position += speed * Time.deltaTime * transform.right;
+
+        if(util.runEnded)
+        {
+            player.transform.position += speed * Time.deltaTime * transform.up;
+            StartCoroutine(Ascension());
+        }
         
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
@@ -96,6 +111,15 @@ public class MovementSystem : MonoBehaviour
         //    player.transform.position = new Vector3(player.transform.position.x, oldPos.y, oldPos.z);
         //}
 
+    }
+    
+    
+    IEnumerator Ascension()
+    {
+        panel.GetComponent<Animator>().SetTrigger("StartTransition");
+        GameCanvas.enabled = false;
+        yield return new WaitForSeconds(timeBeforeEndLevel);
+        panel.transform.Find("End Run").gameObject.SetActive(false);
     }
 
     IEnumerator SlowSpeed(float slow)
