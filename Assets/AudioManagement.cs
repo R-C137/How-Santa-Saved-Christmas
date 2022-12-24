@@ -7,7 +7,7 @@ public class AudioManagement : MonoBehaviour
     public TextWriter TW;
     public static AudioManagement instance;
 
-    public AudioClip BackgroundMusic;
+    public List<AudioClip> BackgroundMusic = new();
 
     // Audio source for music
     public AudioSource musicSource;
@@ -42,25 +42,11 @@ public class AudioManagement : MonoBehaviour
     {
         sfxSource.PlayOneShot(clip, sfxVolume);
     }
-
-    public void PlayMuttering(AudioClip clip)
-    {
-        if(TW.finishedWriting == false)
-        {
-            sfxSource.clip = clip;
-            sfxSource.Play();
-        }
-        else
-        {
-            sfxSource.Stop();
-            return;
-        }
-    }
-
+    
     // Play music
     public void PlayMusic()
     {
-        musicSource.clip = BackgroundMusic;
+        musicSource.clip = BackgroundMusic[Random.Range(0, BackgroundMusic.Count - 1)];
         musicSource.volume = musicVolume;
         musicSource.Play();
     }

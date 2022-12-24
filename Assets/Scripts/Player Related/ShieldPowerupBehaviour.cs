@@ -28,6 +28,43 @@ public class ShieldPowerupBehaviour : SpawnedObjectBehaviour
         LeanTween.cancel(transform.parent.gameObject);
     }
 
+    public override void Update()
+    {
+        Collider[] colliders = Physics.OverlapBox(transform.position, overlapingSize);
+
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == gameObject)
+                continue;
+
+            if (collider.gameObject.TryGetComponent<SpawnedObjectBehaviour>(out var spawnedObjectBehaviour))
+            {
+                OnOverlap(collider);
+
+                if (destroySelfOnOverlap)
+                {
+                    if (!spawnedObjectBehaviour.destroySelfOnOverlap)
+                    {
+                        Destroy(transform.parent.gameObject, .1f);
+                        destroying = true;
+                    }
+                    else
+                    {
+                        if (spawnedObjectBehaviour.destroying)
+                            return;
+
+                        if (!spawnedObjectBehaviour.CalculateDestroy())
+                        {
+                            Destroy(transform.parent.gameObject, .1f);
+                            destroying = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public override void OnPlayerTrigger(Collider playerCollider)
     {
         var ls = playerCollider.gameObject.GetComponent<LifeSystem>();

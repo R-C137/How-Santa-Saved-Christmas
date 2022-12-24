@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6520028793402188718}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: ShieldPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   - {fileID: 2198493756171102173}
   - {fileID: 6898091514149493949}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1988922184288252019
 GameObject:
@@ -102,7 +102,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.519854, y: 3.1365967, z: 1}
+  m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 1.81}
 --- !u!1 &2980979468096668830
 GameObject:

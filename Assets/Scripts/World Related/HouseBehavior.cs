@@ -13,6 +13,10 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
     public bool Gifted;
 
+    public GameObject gift;
+
+    public GameObject giftParent;
+
     private void Start()
     {
         SR = GetComponent<Renderer>().material;
@@ -35,7 +39,10 @@ public class HouseBehavior : SpawnedObjectBehaviour
                 break;
 
         }
-        
+
+        giftParent.SetActive(false);
+
+        gift.GetComponent<Renderer>().material.color = new Color(HouseColor.r, HouseColor.g, HouseColor.b, 1);
         SR.color = new (HouseColor.r, HouseColor.g, HouseColor.b, HouseColor.a);
         SR.SetColor("_EmissionColor", new Color((byte)HouseColor.r, (byte)HouseColor.g, (byte)HouseColor.b));
     }
@@ -54,6 +61,9 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
                 dg.DropGift(right);
                 Gifted = true;
+
+                giftParent.SetActive(true);
+
                 //canDrop = false;
                 //StartCoroutine(ResetDrop());
             }

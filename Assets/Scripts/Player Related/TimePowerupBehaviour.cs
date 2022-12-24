@@ -23,6 +23,43 @@ public class TimePowerupBehaviour : SpawnedObjectBehaviour
         LeanTween.moveY(transform.parent.gameObject, 5, .5f).setOnComplete(() => LeanTween.moveY(transform.parent.gameObject, 3, .5f).setOnComplete(MoveUpDown));
     }
 
+    public override void Update()
+    {
+        Collider[] colliders = Physics.OverlapBox(transform.position, overlapingSize);
+
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == gameObject)
+                continue;
+
+            if (collider.gameObject.TryGetComponent<SpawnedObjectBehaviour>(out var spawnedObjectBehaviour))
+            {
+                OnOverlap(collider);
+
+                if (destroySelfOnOverlap)
+                {
+                    if (!spawnedObjectBehaviour.destroySelfOnOverlap)
+                    {
+                        Destroy(transform.parent.gameObject, .1f);
+                        destroying = true;
+                    }
+                    else
+                    {
+                        if (spawnedObjectBehaviour.destroying)
+                            return;
+
+                        if (!spawnedObjectBehaviour.CalculateDestroy())
+                        {
+                            Destroy(transform.parent.gameObject, .1f);
+                            destroying = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public override void OnPlayerTrigger(Collider playerCollider)
     {
         var ms = playerCollider.gameObject.GetComponent<MovementSystem>();

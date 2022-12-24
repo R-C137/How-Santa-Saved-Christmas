@@ -30,6 +30,13 @@ public class MovementSystem : MonoBehaviour
     public GameObject blizzardNear;
     public GameObject blizzardFar;
 
+    public int maxSpeed;
+    public int maxRLSpeed;
+
+    public float timeToMaxSpeed;
+
+    public bool tweening;
+
     void Start()
     {
         Utility.instance.onGameOver += () => stopped = true;
@@ -69,6 +76,17 @@ public class MovementSystem : MonoBehaviour
 
         if (stopped)
             return;
+
+        if (!tweening)
+        {
+            LeanTween.value(gameObject, speed, maxSpeed, timeToMaxSpeed).setOnUpdate((float val) =>
+            {
+                speed = val;
+                rightLeftMovementSpeed = Mathf.Clamp(val, rightLeftMovementSpeed, maxRLSpeed);
+            });
+
+            tweening = true;
+        }
 
         oldPos = player.transform.position;
 
@@ -112,10 +130,14 @@ public class MovementSystem : MonoBehaviour
 
         rightLeftMovementSpeed -= slow;
 
+        LeanTween.pause(gameObject);
+
         yield return new WaitForSeconds(8f);
 
         speed = oldSpeed;
 
         rightLeftMovementSpeed = oldRLSpeed;
+
+        LeanTween.resume(gameObject);
     }
 }
