@@ -34,7 +34,7 @@ public class SnowballLaunch : MonoBehaviour
 
             // Create a bullet and add force in the direction of the mouse position
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody>().AddForce(direction * fireStrength, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(direction * fireStrength * (GetComponent<MovementSystem>().speed / 25), ForceMode.Impulse);
 
             // Set the lifetime of the bullet
             Destroy(bullet, bulletLifetime);
