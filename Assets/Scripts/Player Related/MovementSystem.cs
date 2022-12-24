@@ -46,8 +46,6 @@ public class MovementSystem : MonoBehaviour
 
     public void Slow()
     {
-        float time = 8f;
-
         float amount;
 
         float level = PlayerPrefs.GetInt("TimeUpgradeCurrentLevel", 0);
@@ -77,13 +75,6 @@ public class MovementSystem : MonoBehaviour
         //Not transform.forward due to the front being on the transform.right
         player.transform.position += speed * Time.deltaTime * transform.right;
 
-        if(util.runEnded)
-        {
-            player.transform.position += speed * Time.deltaTime * transform.up;
-            StartCoroutine(Ascension());
-        }
-        
-
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             player.transform.position += rightLeftMovementSpeed * Time.deltaTime * transform.forward;
@@ -112,16 +103,6 @@ public class MovementSystem : MonoBehaviour
         //}
 
     }
-    
-    
-    IEnumerator Ascension()
-    {
-        panel.GetComponent<Animator>().SetTrigger("StartTransition");
-        GameCanvas.enabled = false;
-        yield return new WaitForSeconds(timeBeforeEndLevel);
-        panel.transform.Find("End Run").gameObject.SetActive(false);
-    }
-
     IEnumerator SlowSpeed(float slow)
     {
         float oldSpeed = speed;
@@ -131,7 +112,7 @@ public class MovementSystem : MonoBehaviour
 
         rightLeftMovementSpeed -= slow;
 
-        yield return new WaitForSeconds(slow);
+        yield return new WaitForSeconds(8f);
 
         speed = oldSpeed;
 
