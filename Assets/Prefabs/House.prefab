@@ -4952,7 +4952,7 @@ MonoBehaviour:
   destroySelfOnOverlap: 1
   compensateForHeight: 1
   destroying: 0
-  overlapingSize: {x: 100, y: 2, z: 16}
+  overlapingSize: {x: 75, y: 2, z: 16}
   particles: {fileID: 7935476883033659936}
   HouseColor: {r: 0, g: 0, b: 0, a: 1}
   SR: {fileID: 2100000, guid: fb39ef3518647a541a4c0a73525a787e, type: 2}

@@ -77,9 +77,6 @@ public class GiftSystem : MonoBehaviour
 
     public void DropGift(bool right)
     {
-        if(Utility.instance.levelFinished)
-            return;
-
         giftsDropped++;
 
         PlayerPrefs.SetInt("GiftsTotal", giftsDropped);
