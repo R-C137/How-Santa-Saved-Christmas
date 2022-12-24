@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class MovementSystem : MonoBehaviour
 {
+    public List<Animator> reindeerAnim;
+
+
+
     public Image panel;
     public float timeBeforeEndLevel;
     public Utility util;
@@ -72,7 +76,10 @@ public class MovementSystem : MonoBehaviour
     public void Update()
     {
         if (Utility.instance.isPaused || !Utility.instance.gameStarted)
+        {
+            foreach(Animator obj in reindeerAnim) { obj.SetBool("canRun", false); }
             return;
+        }
 
         if (stopped)
             return;
@@ -92,6 +99,7 @@ public class MovementSystem : MonoBehaviour
 
         //Not transform.forward due to the front being on the transform.right
         player.transform.position += speed * Time.deltaTime * transform.right;
+        foreach (Animator obj in reindeerAnim) { obj.SetBool("canRun", true); }
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {

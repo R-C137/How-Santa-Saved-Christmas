@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08440788, g: 0.04664584, b: 0.13695762, a: 1}
+  m_IndirectSpecularColor: {r: 0.08473599, g: 0.04697582, b: 0.1372773, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6004,6 +6004,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378884661}
   m_CullTransparentMesh: 1
+--- !u!95 &398848497 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 668392084519605177, guid: 36ccb21b23a8ee84a9eebc86a13dba5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1464025901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -10700,6 +10706,12 @@ MeshFilter:
 --- !u!4 &1219198018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1207389247390397364, guid: 36ccb21b23a8ee84a9eebc86a13dba5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 751097803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1219198019 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 668392084519605177, guid: 36ccb21b23a8ee84a9eebc86a13dba5c,
     type: 3}
   m_PrefabInstance: {fileID: 751097803}
   m_PrefabAsset: {fileID: 0}
@@ -22410,6 +22422,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &1668333421 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 668392084519605177, guid: 36ccb21b23a8ee84a9eebc86a13dba5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1159891578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1676156220
 GameObject:
   m_ObjectHideFlags: 0
@@ -23292,6 +23310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f142a40d072de974794bfc71c05b6e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reindeerAnim:
+  - {fileID: 398848497}
+  - {fileID: 1668333421}
+  - {fileID: 2116243196}
+  - {fileID: 1219198019}
   panel: {fileID: 0}
   timeBeforeEndLevel: 5
   util: {fileID: 1910708833}
@@ -24920,6 +24943,12 @@ CanvasRenderer:
 --- !u!4 &2116243195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1207389247390397364, guid: 36ccb21b23a8ee84a9eebc86a13dba5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699467552}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2116243196 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 668392084519605177, guid: 36ccb21b23a8ee84a9eebc86a13dba5c,
     type: 3}
   m_PrefabInstance: {fileID: 1699467552}
   m_PrefabAsset: {fileID: 0}

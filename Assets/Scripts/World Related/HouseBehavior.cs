@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HouseBehavior : SpawnedObjectBehaviour
 {
+    public ParticleSystem particles;
     public Color HouseColor;
 
     public Material SR;
@@ -23,19 +24,25 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
         int colorIndex = Random.Range(0, 4);
 
+        ParticleSystem.MainModule settings = particles.main;
+
         switch (colorIndex)
         {
             case 0:
                 HouseColor = new Color32(255, 0, 0, (byte)alpha); //red
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 0, 0, 255));
                 break;
             case 1:
                 HouseColor = new Color32(0, 255, 0, (byte)alpha); //green
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(0, 255, 0, 255));
                 break;
             case 2:
                 HouseColor = new Color32(0, 0, 255, (byte)alpha); //blue
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(0, 0, 255, 255));
                 break;
             case 3:
                 HouseColor = new Color32(255, 255, 0, (byte)alpha); //yellow
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 255, 0, 255));
                 break;
 
         }
