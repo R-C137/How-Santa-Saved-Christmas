@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7766983500077371779}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,6 +102,8 @@ MonoBehaviour:
   compensateForHeight: 0
   destroying: 0
   overlapingSize: {x: 5, y: 1, z: 5}
+  Oh: {fileID: 8300000, guid: 96f1c7b665682cf44a0cf234fc6ac81a, type: 3}
+  AB: {fileID: 0}
 --- !u!65 &187839501659461884
 BoxCollider:
   m_ObjectHideFlags: 0

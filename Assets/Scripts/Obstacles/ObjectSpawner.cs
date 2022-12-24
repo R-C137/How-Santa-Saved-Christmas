@@ -176,6 +176,8 @@ public class ObjectSpawner : MonoBehaviour
 
             obj.transform.parent = parent;
 
+            obj.GetComponent<ObstacleBehaviour>().AB = AudioSystem;
+
             spawnedObjects.Add(obj);
 
             spawnedObjects.RemoveAll(_obj => _obj == null);

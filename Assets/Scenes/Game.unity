@@ -10512,7 +10512,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.11334842, y: 0.6961052, z: -0.112731375, w: 0.69991523}
+  m_LocalRotation: {x: 0.113348424, y: 0.6961052, z: -0.112731405, w: 0.69991523}
   m_LocalPosition: {x: 32.139275, y: 9.347218, z: -0.6013479}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17280,10 +17280,10 @@ MonoBehaviour:
   TW: {fileID: 0}
   BackgroundMusic:
   - {fileID: 8300000, guid: e1ce7a9f1320ffc49bdb53f6f5cb2992, type: 3}
-  - {fileID: 8300000, guid: cf5885c3a34d2b34f9605d9d5ea03efc, type: 3}
-  - {fileID: 8300000, guid: 7f169e22dc796c24985b25ecc4db98d6, type: 3}
-  - {fileID: 8300000, guid: 02c600be18d67a44b892a48d4c68b822, type: 3}
-  - {fileID: 8300000, guid: 2cf723f5a146a784b8977f3495b336f9, type: 3}
+  - {fileID: 8300000, guid: 62d2ed5e140cfc14e92abe10be02fabb, type: 3}
+  - {fileID: 8300000, guid: 5e6743f9e5094ae4ca3a5a669c36c0ac, type: 3}
+  - {fileID: 8300000, guid: 224972eecccfe7a4c819b7bacc3bcc6f, type: 3}
+  - {fileID: 8300000, guid: 155a8000df326564ba76705b359e148f, type: 3}
   musicSource: {fileID: 1335979178}
   sfxSource: {fileID: 1335979178}
   musicVolume: 0.25
@@ -32701,7 +32701,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749310181}
-  m_LocalRotation: {x: 0.11334842, y: 0.6961052, z: -0.112731375, w: 0.69991523}
+  m_LocalRotation: {x: 0.113348424, y: 0.6961052, z: -0.112731405, w: 0.69991523}
   m_LocalPosition: {x: -8.16, y: 8.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -33014,6 +33014,9 @@ MonoBehaviour:
   - {fileID: 1668333421}
   - {fileID: 2116243196}
   - {fileID: 1219198019}
+  psr:
+  - {fileID: 1732272398}
+  - {fileID: 140006515}
   panel: {fileID: 0}
   timeBeforeEndLevel: 5
   util: {fileID: 1910708833}

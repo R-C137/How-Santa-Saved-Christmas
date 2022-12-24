@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class MovementSystem : MonoBehaviour
 {
     public List<Animator> reindeerAnim;
-
+    public List<ParticleSystemRenderer> psr;
 
 
     public Image panel;
@@ -78,6 +78,7 @@ public class MovementSystem : MonoBehaviour
         if (Utility.instance.isPaused || !Utility.instance.gameStarted)
         {
             foreach(Animator obj in reindeerAnim) { obj.SetBool("canRun", false); }
+            foreach (ParticleSystemRenderer part in psr) { part.enabled = false; }
             return;
         }
 
@@ -100,6 +101,8 @@ public class MovementSystem : MonoBehaviour
         //Not transform.forward due to the front being on the transform.right
         player.transform.position += speed * Time.deltaTime * transform.right;
         foreach (Animator obj in reindeerAnim) { obj.SetBool("canRun", true); }
+        foreach(ParticleSystemRenderer part in psr) { part.enabled = true; }
+
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
