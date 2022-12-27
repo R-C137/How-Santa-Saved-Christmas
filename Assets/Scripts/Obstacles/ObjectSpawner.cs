@@ -34,7 +34,7 @@ public class ObjectSpawner : MonoBehaviour
 
     public List<LeveledObject> leveledPwerups = new();
 
-    List<GameObject> powerups = new();
+    public List<GameObject> powerups = new();
 
     public List<GameObject> spawnedObjects = new();
 
@@ -84,6 +84,21 @@ public class ObjectSpawner : MonoBehaviour
         };
     }
 
+    public void Upgraded()
+    {
+        if (PlayerPrefs.GetInt("ShieldUpgradeCurrentLevel", 0) >= 1)
+        {
+            if(!powerups.Contains(leveledPwerups[1].prefab))
+                powerups.Add(leveledPwerups[1].prefab);
+        }
+
+        if (PlayerPrefs.GetInt("TimeUpgradeCurrentLevel", 0) >= 1)
+        {
+            if (!powerups.Contains(leveledPwerups[2].prefab))
+                powerups.Add(leveledPwerups[2].prefab);
+        }
+    }
+
     void Start()
     {
         foreach (var leveledObject in leveledObstacles.Where(leveledObject => leveledObject.levelNeeded <= Utility.instance.playerLevel))
@@ -94,6 +109,16 @@ public class ObjectSpawner : MonoBehaviour
         foreach (var leveledObject in leveledPwerups.Where(leveledObject => leveledObject.levelNeeded <= Utility.instance.playerLevel))
         {
             powerups.Add(leveledObject.prefab);
+        }
+
+        if (!(PlayerPrefs.GetInt("ShieldUpgradeCurrentLevel", 0) >= 1))
+        {
+            powerups.Remove(leveledPwerups[1].prefab);
+        }
+
+        if (!(PlayerPrefs.GetInt("TimeUpgradeCurrentLevel", 0) >= 1))
+        {
+            powerups.Remove(leveledPwerups[2].prefab);
         }
     }
 
@@ -142,7 +167,7 @@ public class ObjectSpawner : MonoBehaviour
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
 
-            GameObject obj = Instantiate(obstacles[Random.Range(0, obstacles.Count - 1)]);
+            GameObject obj = Instantiate(obstacles[Random.Range(0, obstacles.Count)]);
 
             obj.transform.position = pos;
 
@@ -150,6 +175,8 @@ public class ObjectSpawner : MonoBehaviour
                 obj.transform.position += new Vector3(0, obj.transform.lossyScale.y / 2, 0);
 
             obj.transform.parent = parent;
+
+            obj.GetComponent<ObstacleBehaviour>().AB = AudioSystem;
 
             spawnedObjects.Add(obj);
 
@@ -180,7 +207,7 @@ public class ObjectSpawner : MonoBehaviour
 
             Vector3 pos = GetRandomPos(SpawningType.House);
 
-            GameObject obj = Instantiate(houses[Random.Range(0, houses.Count - 1)]);
+            GameObject obj = Instantiate(houses[Random.Range(0, houses.Count)]);
 
             obj.transform.position = pos;
             obj.transform.parent = parent;
@@ -196,6 +223,7 @@ public class ObjectSpawner : MonoBehaviour
         while (true)
         {
             //i'm restr. C137 = You're what ?
+            //i'm deez nuts
             
             yield return new WaitForSeconds(Random.Range(elvesSpawnMinTimer, elvesSpawnMaxTimer));
 
@@ -210,7 +238,7 @@ public class ObjectSpawner : MonoBehaviour
                 //when the elf is spawned, it will laugh
                 AudioSystem.PlaySFX(Laugh);
 
-                GameObject obj = Instantiate(elves[Random.Range(0, elves.Count - 1)]);
+                GameObject obj = Instantiate(elves[Random.Range(0, elves.Count)]);
 
                 obj.GetComponent<ElfBehavior>().playerMovement = player.GetComponentInParent<MovementSystem>();
 
@@ -236,7 +264,7 @@ public class ObjectSpawner : MonoBehaviour
 
             Vector3 pos = GetRandomPos(SpawningType.Normal);
             
-            GameObject obj = Instantiate(powerups[Random.Range(0, elves.Count - 1)]);
+            GameObject obj = Instantiate(powerups[Random.Range(0, powerups.Count)]);
 
             obj.transform.position = pos;
 

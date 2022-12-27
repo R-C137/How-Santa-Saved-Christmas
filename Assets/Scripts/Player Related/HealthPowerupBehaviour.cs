@@ -31,9 +31,23 @@ public class HealthPowerupBehaviour : SpawnedObjectBehaviour
         {
             ls.AddLife();
 
-            LeanTween.rotateY(gameObject, 360, 1f).setDestroyOnComplete(true);
+            if (PlayerPrefs.GetInt("HealthUpgradeCurrentLevel", 1) >= 2)
+            {
+                ls.AddLife();
 
+                if (PlayerPrefs.GetInt("HealthUpgradeCurrentLevel", 0) >= 3)
+                {
+                    ls.AddShield();
+                }
+            }
+            
+            LeanTween.cancel(gameObject);
             LeanTween.moveY(gameObject, 10, .3f);
         }
+    }
+
+    void OnDestroy()
+    {
+        LeanTween.cancel(gameObject);
     }
 }

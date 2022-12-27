@@ -70,7 +70,7 @@ public class GiftSystem : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)/* && !hasChosen*/)
         {
-            CurrentColor = Color.yellow;
+            CurrentColor = new Color32(255, 255, 0, 255);
             SetSelected(giftsUI[3]);
         }
     }
@@ -82,17 +82,9 @@ public class GiftSystem : MonoBehaviour
         PlayerPrefs.SetInt("GiftsTotal", giftsDropped);
 
         candyCaneSystem.GiftDropped(ref giftsDropped);
-        // when a gift is dropped, play the animation
 
-        if (right)
-        {
-            //House is on the right lane
-            this.GetComponent<Animator>().SetTrigger("DropGift");
-        }
-        else
-        {
-            //House is on the left
-        }
+        // when a gift is dropped, play the animation
+        GetComponent<Animator>().SetTrigger("DropGift");
 
         AudioSystem.PlaySFX(GiftSFX);
 

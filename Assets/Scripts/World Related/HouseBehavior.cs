@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class HouseBehavior : SpawnedObjectBehaviour
 {
+    public ParticleSystem particles;
     public Color HouseColor;
 
     public Material SR;
 
-    public float alpha = 255f;
+    public float alpha = 255;
 
     public bool Gifted;
+
+    public GameObject gift;
+
+    public GameObject giftParent;
 
     private void Start()
     {
@@ -19,24 +24,34 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
         int colorIndex = Random.Range(0, 4);
 
+        ParticleSystem.MainModule settings = particles.main;
+
         switch (colorIndex)
         {
             case 0:
-                HouseColor = Color.red;
+                HouseColor = new Color32(255, 0, 0, (byte)alpha); //red
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 0, 0, 255));
                 break;
             case 1:
-                HouseColor = Color.blue;
+                HouseColor = new Color32(0, 255, 0, (byte)alpha); //green
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(0, 255, 0, 255));
                 break;
             case 2:
-                HouseColor = Color.green;
+                HouseColor = new Color32(0, 0, 255, (byte)alpha); //blue
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(0, 0, 255, 255));
                 break;
             case 3:
-                HouseColor = Color.yellow;
+                HouseColor = new Color32(255, 255, 0, (byte)alpha); //yellow
+                settings.startColor = new ParticleSystem.MinMaxGradient(new Color32(255, 255, 0, 255));
                 break;
 
         }
-        
-        SR.color = new(HouseColor.r, HouseColor.g, HouseColor.b, alpha/255);
+
+        giftParent.SetActive(false);
+
+        gift.GetComponent<Renderer>().material.color = new Color(HouseColor.r, HouseColor.g, HouseColor.b, 1);
+        SR.color = new (HouseColor.r, HouseColor.g, HouseColor.b, HouseColor.a);
+        SR.SetColor("_EmissionColor", new Color((byte)HouseColor.r, (byte)HouseColor.g, (byte)HouseColor.b));
     }
 
     void OnTriggerStay(Collider other)
@@ -53,6 +68,9 @@ public class HouseBehavior : SpawnedObjectBehaviour
 
                 dg.DropGift(right);
                 Gifted = true;
+
+                giftParent.SetActive(true);
+
                 //canDrop = false;
                 //StartCoroutine(ResetDrop());
             }

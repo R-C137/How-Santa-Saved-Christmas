@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //Singleton used for common functions and common fields such as "isPlayerDead"
@@ -15,6 +16,7 @@ public class Utility : MonoBehaviour
     public delegate void GameOver();
 
     public event GameOver onGameOver;
+    public bool hasGameEnded;
     
     public delegate void RunEnded();
 
@@ -62,6 +64,8 @@ public class Utility : MonoBehaviour
 
     public bool preGame = true;
 
+    public bool gameStarted;
+
     public GameObject TextHelper;
 
     public TextMeshProUGUI candytotal;
@@ -76,12 +80,26 @@ public class Utility : MonoBehaviour
 
     public TextMeshProUGUI deathUITimer;
 
+    public TextMeshProUGUI currentLevelText;
+
+    public GameObject playerPos;
+
+    public GameObject cam;
+
+    public GameObject blizFar;
+    public GameObject blizNear;
+
+    public Transform parent;
+
+    public Image blackScreen;
+
     void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(this);
+        blackScreen.gameObject.SetActive(true);
     }
 
     void Start()
@@ -97,6 +115,14 @@ public class Utility : MonoBehaviour
         timerHS.text = PlayerPrefs.GetString("TimerHS", "0:0");
 
         currentHighScore = PlayerPrefs.GetInt("TimerHSScript", 0);
+
+        currentLevelText.text = playerLevel.ToString();
+
+
+        LeanTween.value(blackScreen.gameObject, 1, 0, 3.5f).setOnUpdate((float val) =>
+                blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, val))
+            .setOnComplete(() => blackScreen.gameObject.SetActive(false));
+
     }
 
     void Update()
@@ -149,7 +175,7 @@ public class Utility : MonoBehaviour
         (levelupText.transform as RectTransform).position =
             new((levelupText.transform as RectTransform).transform.position.x, defaultLevelupYPos);
 
-        LeanTween.moveY(levelupText.transform as RectTransform, finalLevelupYPos, .5f).setEase(ease).setOnComplete(() =>
+        LeanTween.moveY(levelupText.transform as RectTransform, finalLevelupYPos, 2.5f).setEase(ease).setOnComplete(() =>
         {
             levelupText.gameObject.SetActive(false);
         });
@@ -163,7 +189,10 @@ public class Utility : MonoBehaviour
     {
         gameUI.SetActive(false);
         runEnded = true;
+        hasGameEnded = true;
         onRunEnded?.Invoke();
+
+        EndRunAnimations();
     }
 
     public void StartGame()
@@ -172,6 +201,8 @@ public class Utility : MonoBehaviour
 
         gameUI.SetActive(true);
         preGameUI.SetActive(false);
+
+        gameStarted = true;
     }
 
     public void SetPause(bool pause)
@@ -195,5 +226,25 @@ public class Utility : MonoBehaviour
         obj.transform.GetChild(0).GetComponent<TextWriter>().texts = texts;
         obj.transform.GetChild(0).GetComponent<TextWriter>().finishWritingCallback = onFinish;
         obj.transform.GetChild(0).GetComponent<TextWriter>().destroySelfOnEnd = destroyOnFinish;
+    }
+
+    void EndRunAnimations()
+    {
+        cam.transform.parent = parent;
+        blizFar.transform.parent = parent;
+        blizNear.transform.parent = parent;
+
+        Vector3 fPos = new Vector3(playerPos.transform.position.x + 125, playerPos.transform.position.y + 90,
+            playerPos.transform.position.z);
+
+        LeanTween.move(playerPos, fPos, 8f);
+
+        blackScreen.gameObject.SetActive(true);
+
+        LeanTween.value(blackScreen.gameObject, 0, 1, 3.5f).setOnUpdate((float val) =>
+                blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, val))
+            .setOnComplete(() => LeanTween.value(0, 1, 1f).setOnComplete(() => SceneManager.LoadScene(1)));
+
+        endRunButton.SetActive(false);
     }
 }

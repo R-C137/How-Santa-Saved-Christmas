@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UpgradesHandler : MonoBehaviour
 {
+    public ObjectSpawner os;
+
     public GameObject upgrades;
 
     public TextMeshProUGUI candyCanesCounter;
@@ -51,6 +53,10 @@ public class UpgradesHandler : MonoBehaviour
         healthLevelText.text = $"{HealthUpgradeCurrentLevel}/{healthUpgradeCost.Count}";
         shieldLevelText.text = $"{ShieldUpgradeCurrentLevel}/{shieldUpgradeCost.Count}";
         timeLevelText.text = $"{TimeUpgradeCurrentLevel}/{timeUpgradeCost.Count}";
+
+        healthUpgradeTextShower.text = healthUpgradeText[HealthUpgradeCurrentLevel];
+        shieldUpgradeTextShower.text = shieldUpgradeText[ShieldUpgradeCurrentLevel];
+        timeUpgradeTextShower.text = timeUpgradeText[TimeUpgradeCurrentLevel];
     }
 
     void Update()
@@ -64,6 +70,15 @@ public class UpgradesHandler : MonoBehaviour
 
     void SaveLevels()
     {
+        //if (ShieldUpgradeCurrentLevel == shieldUpgradeCost.Count)
+        //    ShieldUpgradeCurrentLevel--;
+
+        //if (HealthUpgradeCurrentLevel == healthUpgradeCost.Count)
+        //    HealthUpgradeCurrentLevel--;
+
+        //if (TimeUpgradeCurrentLevel == timeUpgradeCost.Count)
+        //    TimeUpgradeCurrentLevel--;
+
         PlayerPrefs.SetInt("HealthUpgradeCurrentLevel", HealthUpgradeCurrentLevel);
         PlayerPrefs.SetInt("ShieldUpgradeCurrentLevel", ShieldUpgradeCurrentLevel);
         PlayerPrefs.SetInt("TimeUpgradeCurrentLevel", TimeUpgradeCurrentLevel);
@@ -71,10 +86,15 @@ public class UpgradesHandler : MonoBehaviour
         healthUpgradeTextShower.text = healthUpgradeText[HealthUpgradeCurrentLevel];
         shieldUpgradeTextShower.text = shieldUpgradeText[ShieldUpgradeCurrentLevel];
         timeUpgradeTextShower.text = timeUpgradeText[TimeUpgradeCurrentLevel];
+
+        os.Upgraded();
     }
 
     public void HealthUpgrade()
     {
+        if (HealthUpgradeCurrentLevel == healthUpgradeCost.Count)
+            return;
+
         if (candyCaneAmount >= healthUpgradeCost[HealthUpgradeCurrentLevel] && ! healthMaxed)
         {
             candyCaneAmount -= healthUpgradeCost[HealthUpgradeCurrentLevel];
@@ -94,6 +114,9 @@ public class UpgradesHandler : MonoBehaviour
 
     public void ShieldUpgrade()
     {
+        if (ShieldUpgradeCurrentLevel == shieldUpgradeCost.Count)
+            return;
+
         if (candyCaneAmount >= shieldUpgradeCost[ShieldUpgradeCurrentLevel] && !shieldMaxed)
         {
             candyCaneAmount -= shieldUpgradeCost[ShieldUpgradeCurrentLevel];
@@ -113,6 +136,9 @@ public class UpgradesHandler : MonoBehaviour
 
     public void TimeUpgrade()
     {
+        if (TimeUpgradeCurrentLevel == timeUpgradeCost.Count)
+            return;
+
         if (candyCaneAmount >= timeUpgradeCost[TimeUpgradeCurrentLevel] && !timeMaxed)
         {
             candyCaneAmount -= timeUpgradeCost[TimeUpgradeCurrentLevel];

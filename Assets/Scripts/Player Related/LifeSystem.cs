@@ -10,6 +10,10 @@ public class LifeSystem : MonoBehaviour
 
     public bool canLoseLife = true;
 
+    public bool shielded;
+
+    public GameObject shield;
+
     public void Start()
     {
         for (int i = 0; i < lives; i++)
@@ -18,6 +22,58 @@ public class LifeSystem : MonoBehaviour
         }
 
         Utility.instance.onRunEnded += () => canLoseLife = false;
+    }
+
+    IEnumerator ShieldEndWarning(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        LeanTween.size(shield.transform as RectTransform, new Vector2(130, 130), .5f).setOnComplete(() =>
+        {
+            LeanTween.size(shield.transform as RectTransform, new Vector2(100, 100), .5f).setOnComplete(() =>
+            {
+                LeanTween.size(shield.transform as RectTransform, new Vector2(130, 130), .5f).setOnComplete(() =>
+                {
+                    LeanTween.size(shield.transform as RectTransform, new Vector2(100, 100), .5f).setOnComplete(() =>
+                    {
+                        LeanTween.size(shield.transform as RectTransform, new Vector2(130, 130), .5f).setOnComplete(() =>
+                        {
+                            LeanTween.size(shield.transform as RectTransform, new Vector2(100, 100), .5f).setOnComplete(() =>
+                            {
+                                LeanTween.size(shield.transform as RectTransform, new Vector2(130, 130), .5f).setOnComplete(() =>
+                                {
+                                    LeanTween.size(shield.transform as RectTransform, new Vector2(100, 100), .5f);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    public void AddShield()
+    {
+        //TODO : Color the hearts blue
+        shield.SetActive(true);
+
+        shielded = true;
+
+        float time;
+
+        float level = PlayerPrefs.GetInt("ShieldUpgradeCurrentLevel", 0);
+
+        if (level <= 1)
+            time = 5f; //Normal length
+        else if (level == 2)
+            time = 7f;
+        else if (level == 3)
+            time = 12f;
+        else
+            time = 17f;
+
+        StartCoroutine(ShieldTimer(time));
+        StartCoroutine(ShieldEndWarning(time - 4));
     }
 
     public void AddLife()
@@ -42,7 +98,7 @@ public class LifeSystem : MonoBehaviour
 
     public void RemoveLife()
     {
-        if(!canLoseLife)
+        if(!canLoseLife || shielded)
             return;
 
         int index = lives - 1;
@@ -63,5 +119,12 @@ public class LifeSystem : MonoBehaviour
         }
 
         lives--;
+    }
+
+    IEnumerator ShieldTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        shielded = false;
+        shield.SetActive(false);
     }
 }
